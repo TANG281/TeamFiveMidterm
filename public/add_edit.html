@@ -26,14 +26,10 @@
 
   <!-- MAIN CONTAINER -->
   <main>
-    <div class="input-group mb-3">
-      <span class="input-group-text" id="owner-id">Owner ID</span>
-      <input type="text" class="form-control" aria-label="owner ID" aria-describedby="owner-id">
-    </div>
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="title">Title</title></span>
-      <input type="text" class="form-control" aria-label="title" aria-describedby="title">
+      <input type="text" class="form-control" aria-label="title" aria-describedby="title" required>
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text">Description</span>
@@ -41,14 +37,15 @@
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text" id="price">Price</span>
-      <input type="text" class="form-control" aria-label="Price" aria-describedby="price">
+      <input type="text" class="form-control" aria-label="Price" aria-describedby="price" required>
     </div>
     <div class="input-group">
       <div class="input-group-text">
-        <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for item Instock">
+        <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for item Instock" required>
         <span class="form-text">Instock</span>
 
-        <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for item Out of stock">
+        <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for item Out of stock"
+          required>
         <span class="form-text">Out of stock</span>
       </div>
     </div>
@@ -57,18 +54,18 @@
       <label for="image_url" class="form-label">Item Image URL</label>
       <div class="input-group">
         <span class="input-group-text" id="image_url">https://Laptops/images...</span>
-        <input type="text" class="form-control" id="image_url" aria-describedby="image_url">
+        <input type="text" class="form-control" id="image_url" aria-describedby="image_url" required>
       </div>
       <div class="form-text" id="basic-addon4">help text goes here.</div>
     </div>
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="category">Category</span>
-      <input type="text" class="form-control" aria-label="Category" aria-describedby="category">
+      <input type="text" class="form-control" aria-label="Category" aria-describedby="category" required>
     </div>
-    
+
     <div>
-      <input class="btn btn-outline-primary" type="submit" value="Submit">
+      <a href="./index.html"><input class="btn btn-outline-primary" type="submit" value="Save"></a>
       <input class="btn btn-outline-secondary" type="reset" value="Reset">
     </div>
   </main>
