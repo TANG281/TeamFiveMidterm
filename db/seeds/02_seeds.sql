@@ -6,6 +6,8 @@ INSERT INTO users (name, email, password, phone_number)
 VALUES ('Jerryl', 'jerryl@email.com', '789', 1238904567);
 INSERT INTO users (name, email, password, phone_number)
 VALUES ('Afreeda', 'afreeda@email.com', '743', 1234834567);
+INSERT iNTO users (name, email, password, phone_number)
+VALUES ('Afish', 'afish@email.com', '786', 1234844577);
 
 INSERT INTO items (owner_id, title, description, price, images_url, category, date_posted)
 VALUES (1, 'iPhone 14 Pro Max', 'Up for sale is a pristine iPhone 14 Pro Max, a pinnacle of technology and elegance. Its expansive 6.7-inch Super Retina XDR display brings visuals to life, powered by the blazing A16 Bionic chip for seamless performance. Capture life''s moments with precision using the triple-lens Pro camera system, including ultra-wide, wide, and telephoto lenses. With 5G capabilities, experience lightning-fast connectivity. The sleek design features a ceramic shield front and stainless-steel frame. This unlocked device offers convenience and security with Face ID. Immaculately maintained, it comes with original accessories. Elevate your mobile experience with this exceptional iPhone 14 Pro Max.', 1000, './planning/images/phone1.png', 'Phones', NOW());
