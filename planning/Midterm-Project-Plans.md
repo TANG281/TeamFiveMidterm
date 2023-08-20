@@ -145,17 +145,21 @@ Starting Point: The Midterm project has been setup for first use [Tuan].
 
 Branches
 
-  * `git checkout -b newbranch`
+  * Checkout a new branch: `git checkout -b newbranch`
+  * Do your work on this branch.
+  * If you need to come back and work on a `feature` branch, name it `feature-v2`.
 
-* If you need to come back and work on a `feature` branch, name it `feature-v2`.
+* Once you are done working on a feature/bugfix, you need to propogate the changes in a different way from how you've been doing it so far. 
 
-* Once you are done working on a feature/bugfix, do NOT merge your feature branch back into master LOCALLY! (This is what you've been doing so far in the program.) Instead, handle it on Github by making a Pull Request.
+* Let's understand the state of your local repo: Before you started work, your local repository's `master` branch was made up to date with the remote branch (on Github). Then, you forked off a new branch from `master` and made commits to it. The feature branch is now ahead of your local `master`. 
+
+* Do NOT merge your feature branch back into master LOCALLY! (This is what you've been doing so far in the program.) Instead, handle it on Github by making a Pull Request.
 
 
 Pull Request
 
 * In the branch you've been working in, push your changes to Github: `git push origin my-branch`.
-* You should get a notification on the project page that urges you to compare and complete a pull request.
+* You should get a notification on the project home page that urges you to compare and complete a pull request.
 
 * Create a pull request.
 * Resolve any merge conflicts that may occur.
@@ -164,14 +168,14 @@ Pull Request
 
 Re-Starting the Cycle: Working on the Next Feature/Bugfix
 
-* Now your changes should be part of master. You can now go back to working on the next feature/bugfix.
+* Now your changes should be part of `master` on Github. You can now go back to working on the next feature/bugfix.
 
-* But the first thing you should do you update the local repo by pulling in changes from other team members:
+* But your local repo's `master` branch still doesn't have changes you made in the feature branch. This branch is also probably outdated with respect to changes made by other team members to the remote repository's (Github) `master` branch. So the first thing you should do you update the local repo's 	`master` branch by pulling in changes from the remote `master`:
 
   * `git checkout master`
   * `git pull origin master`
 
-* Now `master` should be fully up to date. You can create a new feature/bugfix branch to work in:
+* Now `master` should be fully up to date. Next, you can start work on a new task by creating a new feature/bugfix branch to work in:
 
   * `git checkout -b my-branch`
   * `git push origin my-branch`
