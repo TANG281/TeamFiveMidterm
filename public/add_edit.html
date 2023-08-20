@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<!-- THE HEAD -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +11,37 @@
   <!-- STYLESHEETS -->
   <link rel="stylesheet" href="./vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="./vendor/border-box.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <link rel="stylesheet" href="./styles/main.css" />
   <link rel="stylesheet" href="./styles/layout.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
+
 
   <!-- SCRIPTS -->
   <script src="./vendor/jquery-3.0.0.js"></script>
-  <script defer src="./scripts/app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script defer src="./scripts/app.js"></script>
+  <script src="./scripts/users.js"></script>
 
 </head>
 
+
+<!-- THE BODY -->
 <body>
+
+  <!-- NAVIGATION BAR -->
+  <div id="Nav-Bar-Container">
+    <!-- The Navigation bar will be appended here from `app.js`. -->
+  </div>
+
+
   <!-- HEADER -->
   <header></header>
+
 
   <!-- MAIN CONTAINER -->
   <main>
@@ -31,18 +50,21 @@
       <span class="input-group-text" id="title">Title</title></span>
       <input type="text" class="form-control" aria-label="title" aria-describedby="title" required>
     </div>
+
     <div class="input-group mb-3">
       <span class="input-group-text">Description</span>
       <textarea class="form-control" aria-label="description"></textarea>
     </div>
+
     <div class="input-group mb-3">
       <span class="input-group-text" id="price">Price</span>
       <input type="text" class="form-control" aria-label="Price" aria-describedby="price" required>
     </div>
+
     <div class="input-group">
       <div class="input-group-text">
         <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for item Instock" required>
-        <span class="form-text">Instock</span>
+        <span class="form-text">In stock</span>
 
         <input class="form-check-input mt-0" type="radio" value="" aria-label="Radio button for item Out of stock"
           required>
@@ -68,10 +90,15 @@
       <a href="./index.html"><input class="btn btn-outline-primary" type="submit" value="Save"></a>
       <input class="btn btn-outline-secondary" type="reset" value="Reset">
     </div>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer></footer>
+
+  <!-- FOOTER-->
+  <footer class="bg-light container-fluid">
+    <!-- The Footer will be appended here from `app.js`. -->
+  </footer>
+
 </body>
 
 </html>
