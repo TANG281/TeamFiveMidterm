@@ -16,3 +16,53 @@ body {
     rgba(163, 208, 219, 1) 100%
   );
 }
+
+#main-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.featured-items {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+
+}
+.navbar-expand-lg {
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-nav i {
+
+  justify-content: center;
+  margin-left: 3em;
+  padding: 8px;
+
+}
+
+
+.input-group {
+  margin-bottom: 15px;
+}
