@@ -5,50 +5,51 @@
 
 #### Website Name: TEAM FIVE!!!
 
-This is a Ecommerce auction-style website where buyers & sellers can trade in four categories of electronic items: Laptops, Desktops, Mini PCs & Phones. This will be a multi-page app, that may also incorporate Single-Page applications (SPA).
+This is a Ecommerce auction-style website where buyers & sellers can trade in four categories of electronic items: Laptops, Desktops, Mini PCs & Phones. This will be a multi-page app, that may also incorporate Single-Page applications (SPA). 
 
 Project Goal: This project is NOT intended to be a full-scale project, but rather a demonstrator of a team's ability to plan, organize, design and build a basic website in two weeks. As such, this project will produce a minimum viable demo (MVD).
 
 
-The website will have 3 items (SKUs) per category (to start with).
+The website will have 4 categories of product, each with 3 items (SKUs) per category (to start with).
 
 
 The category pages will have filters for:
 
   * Price
-  * Colour
+  * Availability
+
 
 ## User Stories (and their Webpages)
 
 Non-logged-in user:
 
-- As a non logged-in user, I can see featured items in the main feed
+- As a non logged-in user, I can see featured items in the main feed.
   [Homepage Page]
 
-- As a non logged-in user, I can filter items by price, make, colour
+- As a non logged-in user, I can filter items by price, availability etc.
   [Homepage Page]
 
 
 Logged-in user:
 
-- As a logged-in user, I can favorite items [Category, Product Page]
+- As a logged-in user, I can favourite items. [Category, Product Page]
 
-- As a logged-in user, I can send messages to the seller of the item [Product Page]
+- As a logged-in user, I can send messages to the seller of the item. [Product Page]
 
 
 Admin user (1 - 2 users):
 
 An admin is a superuser that can buy, or sell. They have additional powers:
 
-- As a logged-in 'admin', I can add new items which can be seen by anyone
+- As a logged-in 'admin', I can add new items which can be seen by anyone.
   [Add/Edit Items Page]
 
-- As a logged-in 'admin', I can edit items which I listed [Add/Edit Items Page]
+- As a logged-in 'admin', I can edit items which I listed. [Add/Edit Items Page]
 
-- As a logged-in 'admin', I can delete items which I listed
+- As a logged-in 'admin', I can delete items which I listed.
   [Category Page: With "Are you sure"? alert]
 
-- As a logged-in 'admin', I can mark items as SOLD
+- As a logged-in 'admin', I can mark items as SOLD.
   [Add/Edit Items Page]
 
 
@@ -65,7 +66,7 @@ Delete  // POST
 ------------------
 
 Browse  // GET
-Read    // GET    /categories/:category_id -> Category page
+Read    // GET    items/categories/:category_id -> Category page
 Edit    // POST   [Proper RESTful Route: /items?categories="my-category"]
 Add     // POST
 Delete  // POST
@@ -84,7 +85,8 @@ Delete  // POST
 
 Browse  // GET
 Read    // GET    /items/:item_id -> Product page
-Edit    // POST   /items/:item_id/fav
+Edit    // POST   /items/:item_id/update
+			      /items/:item_id/fav
 Add     // POST   /items/create_new
 Delete  // POST   /items/:item_id/delete
 
@@ -92,10 +94,7 @@ Delete  // POST   /items/:item_id/delete
 
 
 
-## Git Workflow
-
-
-### Completing Project Setup Locally (For first time only)
+## Project Setup (For first time only)
 
 Starting Point: The Midterm project has been setup for first use [Tuan].
 
@@ -105,53 +104,76 @@ Starting Point: The Midterm project has been setup for first use [Tuan].
   * `git checkout master`
   * `git pull origin master`
 
-  Local Setup
 
-  * Install dependencies: `npm i`
-  * Fix to binaries for sass: `npm rebuild node-sass`
-  * Reset database: `npm run db:reset`
+  Add & Setup Database Locally
+ 
+  * Install PostgreSQL in project: `npm i pg`.
+  * Connect to vagrant PostgreSQL database: `psql -U vagrant -d template1`.
+  * Create database & add credentials:
+ 
+  	* `CREATE ROLE x WITH LOGIN password 'y';`
+	* `CREATE DATABASE midterm OWNER x;`
+
+	
+  Setup Project Locally
+ 
+  * Create the `.env` by using `.env.example` as a reference.
+  * Update the .env file with your correct local information:
+ 
+ 	* username: `x`
+ 	* password: `y`
+ 	* database: midterm
+ 
+  * Install dependencies: `npm i`.
+  * Fix to binaries for sass: `npm rebuild node-sass`.
+  * Reset database: `npm run db:reset`.
+    [Check the db folder to see what gets created and seeded in the SDB]
+ 
 
   Starting the Program
 
-  * Run the server: `npm run local`
-  * Note: nodemon is used, so you should not have to restart your server
-  * Visit `http://localhost:8080/`
+  * Run the server: `npm run local`.
+    [Note: nodemon is used, so you should not have to restart your server]
+  * Visit `http://localhost:8080/`.
 
 
-### Now You Can Work on the Project
+## Git Workflow
 
-
-Branches
+### Now You Can Get to Work
 
 * After initial setup, never commit directly to master again. Use branches to do your work in.
+
+Branches
 
   * `git checkout -b newbranch`
 
 * If you need to come back and work on a `feature` branch, name it `feature-v2`.
 
+* Once you are done working on a feature/bugfix, do NOT merge your feature branch back into master LOCALLY! (This is what you've been doing so far in the program.) Instead, handle it on Github by making a Pull Request.
+
 
 Pull Request
 
-* Once you are done working on a feature/bugfix, do NOT merge your feature branch back into master LOCALLY! Instead, go to Github:
+* In the branch you've been working in, push your changes to Github: `git push origin my-branch`.
+* You should get a notification on the project page that urges you to compare and complete a pull request.
 
-  * `git push origin my-branch`
-
-    * Push your work to GH on the branch you are using. Avoid merging
-      the branch to master as you have been doing so far.
-
-  * Create a pull request
-  * Merge the pull request into master
-  * Resolve any merge conflicts that may occur
+* Create a pull request.
+* Resolve any merge conflicts that may occur.
+* Merge the pull request into master.
 
 
 Re-Starting the Cycle: Working on the Next Feature/Bugfix
 
 * Now your changes should be part of master. You can now go back to working on the next feature/bugfix.
 
+* But the first thing you should do you update the local repo by pulling in changes from other team members:
+
   * `git checkout master`
   * `git pull origin master`
-  * `git checkout -b my-branch`
 
+* Now `master` should be fully up to date. You can create a new feature/bugfix branch to work in:
+
+  * `git checkout -b my-branch`
   * `git push origin my-branch`
 
 
@@ -171,8 +193,8 @@ Re-Starting the Cycle: Working on the Next Feature/Bugfix
 
 ## Project Management
 
-* Trello
-* Github has a built-in project board (similar to a kanban board)
+* Trello [We are using Trello].
+* Github Projects  has a built-in project board (similar to a kanban board).
 
 
 ## Developer Roles
@@ -189,6 +211,7 @@ Re-Starting the Cycle: Working on the Next Feature/Bugfix
 
 ## Stretch Goals
 
+* Search Functionality
 * Responsive Design
 * Favourites Page
 * Real-time Chat [Web Sockets]
