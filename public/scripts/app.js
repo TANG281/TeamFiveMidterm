@@ -61,12 +61,43 @@ $(document).ready(function() {
   };
 
 
+  // This function creates an HTML template for the footer.
+  const createFooterElement = function() {
+
+    // Create a footer element using Font Awesome's Social Media Icons.
+    const $footer = $(
+      `
+      <!-- Uses Font Awesome -->
+      <div id="Social-Media-Container">
+        <i class="fa-solid fa-rss"></i>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-github"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-twitter"></i>
+      </div>
+
+      <div id="Copyright">
+        <p>Copyright &copy; 2023 Team Five</p>
+        <p>Team Five is the Best Team! We are committed to providing the best product and outstanding customer service.</p>
+        <sub>All Sales are Final. No Refunds! Go Away!</sub>
+      </div>
+      `
+    );
+
+
+    return $footer;
+  };
+
+
   // This function appends HTML Elements (like the header & footer) to the
   // HTML files in this project.
   const renderHTMLElements = function() {
 
-    // Load the Nav Bar into the .
+    // Load the Nav Bar.
     $("#Nav-Bar-Container").prepend(createNavBarElement());
+
+    // Load the footer.
+    $("footer").prepend(createFooterElement());
 
   };
 
