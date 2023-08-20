@@ -107,7 +107,6 @@ Starting Point: The Midterm project has been setup for first use [Tuan].
 
   Add & Setup Database Locally
  
-  * Install PostgreSQL in project: `npm i pg`.
   * Connect to vagrant PostgreSQL database: `psql -U vagrant -d template1`.
   * Create database & add credentials:
  
@@ -117,12 +116,21 @@ Starting Point: The Midterm project has been setup for first use [Tuan].
 	
   Setup Project Locally
  
-  * Create the `.env` by using `.env.example` as a reference.
-  * Update the .env file with your correct local information:
+  * Create the `.env` by using `.env.example` as a reference. It should look like this:
  
- 	* username: `x`
- 	* password: `y`
- 	* database: midterm
+    ```
+    DB_HOST=localhost
+    DB_USER=
+    DB_PASS=
+    DB_NAME=midterm
+    # Uncomment and set to true for Heroku
+    # DB_SSL=true if heroku
+    DB_PORT=5432
+    ```
+
+  * Update the `.env` file with the `DB_USER` and `DB_PASS` values. These values should be the ones you declared for `ROLE` (x) and ` LOGIN password` (y). Save the file.
+  
+  Now you can install local dependencies.
  
   * Install dependencies: `npm i`.
   * Fix to binaries for sass: `npm rebuild node-sass`.
