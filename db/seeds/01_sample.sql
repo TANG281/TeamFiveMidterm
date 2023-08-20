@@ -1,8 +1,8 @@
 -- Users table seeds here (Example)
 INSERT INTO users (name, email, password, phone_number)
-VALUES ('Alice', '1@email.com', '123', NOW());
+VALUES ('Alice', '1@email.com', '123', 987654321);
 INSERT INTO users (name, email, password, phone_number, is_admin)
-VALUES ('Kira', '2@email.com', '345', NOW(), TRUE);
+VALUES ('Kira', '2@email.com', '345', 123456789, TRUE);
 
 INSERT INTO items (owner_id, title, description, price, images_url, category, date_posted)
 VALUES (1, 'title', 'description', 150, './planning/images/sample.png', 'Phones', NOW());

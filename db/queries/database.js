@@ -66,11 +66,47 @@ const editItem = (itemData, itemId) => {
     });
 };
 
-// To discuss which filter are we going make available?
-const filterItemsByPrice = (minPrice, maxPrice) => {
-  const queryString = `SELECT * FROM items WHERE price > $1 AND price < $2;`;
+// filter items
+const filterItems = (options, category) => {
+
+  const queryParams = [];
+
+  const queryString = `SELECT * FROM items `;
+
+  const conditionString = '';
+
+  if (options.minPrice) {
+    if (queryParams.length > 0) {
+      conditionString += ` AND `;
+    }
+    queryParams.push(`${options.minPrice}`);
+    conditionString += `price >= $${queryParams.length}`;
+  };
+
+  if (options.maxPrice) {
+    if (queryParams.length > 0) {
+      conditionString += ` AND `;
+    }
+    queryParams.push(`${options.maxPrice}`);
+    conditionString += `price <= $${queryParams.length}`;
+  }
+
+  if (options.is_available) {
+    if (queryParams.length > 0) {
+      conditionString += ` AND `;
+    }
+    queryParams.push(`${options.is_available}`);
+    conditionString += `is_available = $${queryParams.length}`;
+  }
+
+  if (conditionString.length > 0) {
+    queryString += ` WHERE category = $${queryParams.length + 1}` + conditionString + `;`;
+  }
+
+  queryParams.push(category);
+
   return db
-    .query(queryString, [minPrice, maxPrice])
+    .query(queryString, queryParams)
     .then((data) => {
       return data.rows;
     })
@@ -79,7 +115,7 @@ const filterItemsByPrice = (minPrice, maxPrice) => {
     });
 };
 
-//userId from cookies session
+// userId from cookies session
 const getFavouriteItems = (userId) => {
   const queryString = `SELECT items.* FROM items JOIN favourites ON items.id = favourites.item_id JOIN users ON users.id = favourites.user_id WHERE id = $1;`;
   return db
@@ -92,7 +128,7 @@ const getFavouriteItems = (userId) => {
     });
 };
 
-//userId from cookies session, itemId from ?
+// userId from cookies session, itemId from ?
 const addFavoriteItem = (userId, itemId) => {
   const queryString = `INSERT INTO favourites (item_id, user_id) VALUES ($1, $2);`;
   return db
@@ -105,7 +141,7 @@ const addFavoriteItem = (userId, itemId) => {
     });
 };
 
-//get the contact information of the seller, itemIDfrom the URL
+// get the contact information of the seller, itemIDfrom the URL
 const getSellerInfo = (itemId) => {
   const queryString = `SELECT users.name, users.email, users.phone_number FROM users JOIN items ON users.id = items.owner_id WHERE items.id = $1;`;
   return db
@@ -119,4 +155,4 @@ const getSellerInfo = (itemId) => {
 };
 
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItemsByPrice, getFavouriteItems, addFavoriteItem, getSellerInfo };
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo };
