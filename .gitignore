@@ -1,5 +1,6 @@
 node_modules/
 public/styles
+.vscode/*
 .env
 .DS_Store
 *.log
