@@ -76,10 +76,17 @@ $(document).ready(function() {
         <i class="fa-brands fa-twitter"></i>
       </div>
 
+
       <div id="Copyright">
-        <p>Copyright &copy; 2023 Team Five</p>
-        <p>Team Five is the Best Team! We are committed to providing the best product and outstanding customer service.</p>
-        <sub>All Sales are Final. No Refunds! Go Away!</sub>
+        <div>
+
+          <!-- Add 'text-black-50' Bootstrap class to text elements to give
+               them 50% opacity. -->
+          <p class="text-black-50">Copyright &copy; 2023 Team Five</p>
+          <p class="text-black-50">Team Five is the Best Team! We are committed to providing the best product and outstanding customer service.</p>
+          <sub class="text-black-50">All Sales are Final. No Refunds! Go Away!</sub>
+
+        </div>
       </div>
       `
     );
