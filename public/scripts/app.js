@@ -43,10 +43,24 @@ $(document).ready(function() {
               <li class="nav-item">
                 <a class="nav-link" href="#category">Phones</a>
               </li>
-              <li>
-                <a href="#Login"><i class="fa-solid fa-user"></i></a>
-              </li>
+
+              <!-- USER ICON DROPDOWN MENU -->
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Login</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Add Item</a></li>
+                    <li><a class="dropdown-item" href="#">Favourites</a></li>
+                  </ul>
+                </li>
+                
             </ul>
+
 
           </div>
 
