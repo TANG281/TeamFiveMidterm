@@ -18,6 +18,7 @@
 
   <link rel="stylesheet" href="./styles/main.css" />
   <link rel="stylesheet" href="./styles/layout.css" />
+  <link rel="stylesheet" href="./styles/add_edit.scss">
 
 
   <!-- SCRIPTS -->
@@ -63,18 +64,19 @@
 
     <div class="input-group">
       <div class="input-group-text">
-        <input class="form-check-input mt-0" type="radio" name="Stock-Status" value="" aria-label="Radio button for item In stock" required>
-        <span class="form-text">In stock</span>
+        <input class="form-check-input mt-0 me-2" type="radio" name="Stock-Status" value=""
+          aria-label="Radio button for item In stock" required>
+        <span class="form-text me-2">In stock</span>
 
-        <input class="form-check-input mt-0" type="radio" name="Stock-Status" value="" aria-label="Radio button for item Out of stock"
-          required>
+        <input class="form-check-input mt-0 me-2" type="radio" name="Stock-Status" value=""
+          aria-label="Radio button for item Out of stock" required>
         <span class="form-text">Out of stock</span>
       </div>
     </div>
 
     <div class="mb-3">
       <div class="input-group">
-        <span class="input-group-text" id="image_url">Item Image URL:</span>
+        <span class="input-group-text" id="image_url">Item Image URL</span>
         <input type="text" class="form-control" id="image_url" aria-describedby="image_url" required>
       </div>
     </div>
