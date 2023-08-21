@@ -35,7 +35,10 @@ body {
   padding: 8px;
 
 }
-
+/* Custom CSS to change the color of icons */
+.fa-solid {
+  color:rgb(34, 0, 255)
+}
 .card {
   max-width: 18rem
 }
@@ -46,4 +49,9 @@ body {
 
 .input-group {
   margin-bottom: 15px;
+}
+
+/* Custom CSS to hide the dropdown arrow */
+.navbar-nav .dropdown-toggle::after {
+  display: none;
 }
