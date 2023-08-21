@@ -11,6 +11,9 @@
   * POST - `/items/create_new` [Add Item: `add-edit.html`]
   * insert new item into the `items` table using `addItem` DB function
 
+  * GET - `/items/create_new` [Add Item: `add-edit.html`]
+  * to render the add item page
+
   * POST - `/items/:item_id/update` [Edit Item: `add-edit.html`]
   * modify an existing item data in the `items` table using `editItem` DB function
 

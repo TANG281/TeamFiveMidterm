@@ -160,6 +160,7 @@ const getUserById = (user_id) => {
   return db
     .query(queryString, [user_id])
     .then((data) => {
+      console.log(data)
       return data.rows[0];
     })
     .catch((err) => {

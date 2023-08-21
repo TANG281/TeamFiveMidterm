@@ -24,44 +24,30 @@ router.get('/login/:id', (req, res) => {
 
 router.get('/userinfo', (req, res) => {
   console.log(req.cookies);
-  const currentUser = getUserFromCookie(req);
+  getUserFromCookie(req)
+    .then(currentUser => {
+      const templateVars = {
+      isLoggedIn: true,
+      isAdmin: false
+    };
 
-  const templateVars = {
-    isLoggedIn: true,
-    isAdmin: false
-  };
+    console.log(currentUser);
 
-  console.log(currentUser);
-
-  if(!currentUser) {
-    templateVars.isLoggedIn = false;
-  } else {
-    if (currentUser.is_admin) {
-      templateVars.isAdmin = true;
+    if(!currentUser) {
+      templateVars.isLoggedIn = false;
+    } else {
+      if (currentUser.is_admin) {
+        templateVars.isAdmin = true;
+      }
     }
-  }
 
-  res.status(200).json(templateVars);
+    res.status(200).json(templateVars);
+  })
 });
 
 // show the static home page to all users
 router.get('/', (req, res) => {
-  const currentUser = getUserFromCookie(req);
-
-  const templateVars = {
-    isLoggedIn: true,
-    isAdmin: false
-  };
-
-  if(!currentUser) {
-    templateVars.isLoggedIn = false;
-  } else {
-    if (currentUser.is_admin) {
-      templateVars.isAdmin = true;
-    }
-  }
-
-  res.render('index.html', templateVars);
+  res.render('index.html');
 });
 
 // show all items in a particular category to any user
@@ -96,21 +82,18 @@ router.get('/items/:item_id', (req, res) => {
 });
 
 router.post('/items/create_new', (req, res) => {
-  const currentUser = getUserFromCookie(req);
+  getUserFromCookie(req)
+    .then(currentUser => {
+      if (!currentUser) {
+        res.json({ error: "User not found" });
+      }
+    })
 
-  const templateVars = {
-    isLoggedIn: true,
-    isAdmin: false
-  };
-
-  if(!currentUser) {
-    templateVars.isLoggedIn = false;
-  } else {
-    if (currentUser.is_admin) {
-      templateVars.isAdmin = true;
-    }
-  }
   res.render('add-edit.html', templateVars);
 })
+
+router.get('/items/create_new', (req, res) => {
+  res.render('add-edit.html');
+});
 
 module.exports = router;
