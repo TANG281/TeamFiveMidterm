@@ -58,7 +58,7 @@ $(document).ready(function() {
                     <li><a class="dropdown-item" href="#">Favourites</a></li>
                   </ul>
                 </li>
-                
+
             </ul>
 
 
