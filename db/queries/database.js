@@ -8,9 +8,6 @@ const getItemsByCategory = (category) => {
     .then((data) => {
       return data.rows; // return an array of objects
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -21,9 +18,6 @@ const getItemById = (itemId) => {
     .then((data) => {
       return data.rows[0]; // return an object
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -34,9 +28,6 @@ const deleteItem = (itemId) => {
     .then((data) => {
       return data.rows; // return the number of row deleted
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // itemData is data from the form, ownerId is the user id in the cookies session
@@ -48,9 +39,6 @@ const addItem = (itemData, ownerId) => {
     .then((data) => {
       return data.rows; // return the number of rows posted?
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // itemData is data from the form, itemId is from the URL eg.(req.params)
@@ -61,9 +49,6 @@ const editItem = (itemData, itemId) => {
     .then((data) => {
       return data.rows; // return the number of rows edited?
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // filter items
@@ -110,9 +95,6 @@ const filterItems = (options, category) => {
     .then((data) => {
       return data.rows;
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // userId from cookies session
@@ -123,9 +105,6 @@ const getFavouriteItems = (userId) => {
     .then((data) => {
       return data.rows;
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // userId from cookies session, itemId from ?
@@ -136,9 +115,6 @@ const addFavoriteItem = (userId, itemId) => {
     .then((data) => {
       return data.rows;
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
 };
 
 // get the contact information of the seller, itemIDfrom the URL
@@ -149,10 +125,21 @@ const getSellerInfo = (itemId) => {
     .then((data) => {
       return data.rows;
     })
-    .catch((err) => {
-      console.log(err.message);
-    });
+};
+
+// check if the logged in user is an admin
+const checkUserIsAdmin = (userId) => {
+  const queryString = `SELECT is_admin FROM users WHERE id = $1;`;
+  return db
+    .query(queryString, [userId])
+    .then((data) => {
+      if (data.rows[0].is_admin === true) {
+        return 'true';
+      } else {
+        return 'false';
+      };
+    })
 };
 
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo };
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, checkUserIsAdmin };
