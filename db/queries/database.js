@@ -154,5 +154,18 @@ const getSellerInfo = (itemId) => {
     });
 };
 
+const getUserById = (user_id) => {
+  const queryString = `SELECT * FROM users WHERE id = $1;`;
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo };
+  return db
+    .query(queryString, [user_id])
+    .then((data) => {
+      return data.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, getUserById };
