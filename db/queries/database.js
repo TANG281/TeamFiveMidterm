@@ -16,7 +16,7 @@ const getItemById = (itemId) => {
   return db
     .query(queryString, [itemId])
     .then((data) => {
-      return data.rows; // return an object
+      return data.rows[0]; // return an object
     })
 };
 

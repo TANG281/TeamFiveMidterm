@@ -29,8 +29,8 @@ router.get('/login/:id', (req, res) => {
   database.checkUserIsAdmin(req.params.id)
     .then(is_admin => {
       res.cookie('is_admin', is_admin);
-     // req.session.is_admin = is_admin; // Set is_admin in req.session
-      console.log(is_admin)
+      // req.session.is_admin = is_admin; // Set is_admin in req.session
+      console.log(is_admin);
       res.redirect('/');
     })
     .catch((err) => {
@@ -47,7 +47,7 @@ router.get('/items/categories/:category_id', (req, res) => {
   const categoryId = req.params.category_id;
 
   database.getItemsByCategory(categoryId)
-  .then(items => {
+    .then(items => {
       // items.forEach((item) => {
       const templateVars = {
         user_id,
@@ -77,29 +77,28 @@ router.get('/', (req, res) => {
   res.render('index', templateVars);
 });
 
-router.get('items/:item_id', (req, res) => {
+router.get('/items/:item_id', (req, res) => {
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = Number(req.params.item_id);
 
   database.getItemById(itemId)
   .then(item => {
-      // items.forEach((item) => {
-      const templateVars = {
-        user_id,
-        is_admin,
-        itemId,
-        item
-      };
-      res.render('item', templateVars);
-      console.log(templateVars);
-    })
+    const templateVars = {
+      user_id,
+      is_admin,
+      itemId,
+      item
+    };
+    res.render('item', templateVars);
+    console.log(templateVars);
+  })
 
     .catch((err) => {
       console.log(err.message);
       res.send('An error occured');
     });
-})
+});
 
 
 
