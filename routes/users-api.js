@@ -34,13 +34,13 @@ router.get('/', (req, res) => {
     user_id,
     is_admin
   };
-  res.render('index.html', templateVars);
+  res.render('index', templateVars);
 });
 
 // Rendering Category page
 router.get('/items/categories/:category_id', (req, res) => {
-  const user_id = req.session.user_id;
-  const is_admin = req.session.is_admin;
+  // const user_id = req.session.user_id;
+  // const is_admin = req.session.is_admin;
   const itemsToShow = []; // Array of item objects in a specific category
   const categoryId = req.params.category_id;
   database.getItemsByCategory(categoryId)
@@ -55,11 +55,11 @@ router.get('/items/categories/:category_id', (req, res) => {
     });
 
   const templateVars = {
-    user_id,
-    is_admin,
+    // user_id,
+    // is_admin,
     itemsToShow
   };
-  res.render('category.html', templateVars);
+  res.render('category', templateVars);
 });
 
 // Rendering Item page

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Adds the Head Partial. -->
+<%- include('./partials/_head'); %>
+
+
+  <!-- THE BODY -->
+<body>
+
+  <!-- THE MAIN CONTAINER -->
+  <!-- This container will hold product cards. -->
+  <main>
+
+    <!-- Adds the Navigation Bar Partial. -->
+    <%- include('./partials/_navbar'); %>
+
+      <!-- THE FILTER BAR -->
+      <div id="Filter-Function" class="bg-light container-fluid">
+
+        <p class="text-black-50">Filter by: </p>
+
+        <!-- Filter Section -->
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dropdown button
+          </button>
+
+          <!-- Available Filters  -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
+            <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- THE CARD -->
+      <div class="card 1">
+
+        <!-- CARD BODY -->
+        <div class="card-body">
+
+          <!-- PRODUCT NAME -->
+          <h5 class="card-title">Item Name</h5>
+
+          <!-- The First Row of Buttons -->
+          <div>
+            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-warning">Edit</button>
+            <button type="button" class="btn btn-info">Favourite</button>
+          </div>
+
+          <!-- Product Image -->
+          <img src="" class="card-img-top" alt="Item image">
+
+          <!-- Price Tag -->
+          <p><span>1000</span> CAD</p>
+
+          <!-- Specifications Button -->
+          <button type="button" class="btn btn-success">Specifications</button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Add the Footer from partials folder -->
+      <%- include('./partials/_footer'); %>
+
+  </main>
+
+</body>
+
+</html>
