@@ -2,44 +2,16 @@
 <html lang="en">
 
 
-<!-- THE HEAD -->
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-
-  <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="./vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="./vendor/border-box.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <link rel="stylesheet" href="./styles/main.css" />
-  <link rel="stylesheet" href="./styles/layout.css" />
-
-
-  <!-- SCRIPTS -->
-  <script src="./vendor/jquery-3.0.0.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script defer src="./scripts/app.js"></script>
-  <script src="./scripts/users.js"></script>
-
-</head>
+<!-- Adds the Head Partial. -->
+<%- include('./partials/_head'); %>
 
 
 <!-- THE BODY -->
 
 <body>
 
-  <!-- NAVIGATION BAR -->
-  <div id="Nav-Bar-Container">
-    <!-- The Navigation bar will be appended here from `app.js`. -->
-  </div>
-
+   <!-- Adds the Navigation Bar Partial. -->
+   <%- include('./partials/_navbar'); %>
 
   <!-- HEADER -->
   <header class="header">
@@ -70,7 +42,7 @@
                     <li>
                       <p class="card-text">Description for Desktop goes here!</p>
                     </li>
-                    <li><a href="#Desktops" class="btn btn-primary">Shop Now</a>
+                    <li><a href="/api/users/items/categories/desktops" class="btn btn-primary">Shop Now</a>
                     </li>
                   </ul>
 
@@ -92,7 +64,7 @@
                     <li>
                       <p class="card-text">Description for Laptop goes here!</p>
                     </li>
-                    <li><a href="#Laptops" class="btn btn-primary">Shop Now</a>
+                    <li><a href="/api/users/items/categories/laptops" class="btn btn-primary">Shop Now</a>
                     </li>
                   </ul>
 
@@ -117,7 +89,7 @@
                     <li>
                       <p class="card-text">Description for Mini-PC goes here!</p>
                     </li>
-                    <li><a href="#Mini-Pcs" class="btn btn-primary">Shop Now</a>
+                    <li><a href="/api/users/items/categories/miniPCs" class="btn btn-primary">Shop Now</a>
                     </li>
                   </ul>
 
@@ -133,12 +105,12 @@
                 <div class="row">
                   <ul class="list-unstyled">
                     <li>
-                      <h5 class="card-title">Phone</h5>
+                      <h5 class="card-title">Phones</h5>
                     </li>
                     <li>
                       <p class="card-text">Description for Phone goes here!</p>
                     </li>
-                    <li><a href="#Phones" class="btn btn-primary">Shop Now</a>
+                    <li><a href="/api/users/items/categories/phones" class="btn btn-primary">Shop Now</a>
                     </li>
                   </ul>
 
@@ -151,13 +123,10 @@
 
     </section>
 
+      <!-- Add the Footer from partials folder -->
+      <%- include('./partials/_footer'); %>
 
   </main>
-
-  <!-- FOOTER-->
-  <footer class="bg-light container-fluid">
-    <!-- The Footer will be appended here from `app.js`. -->
-  </footer>
 
 </body>
 
