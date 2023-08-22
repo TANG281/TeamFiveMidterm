@@ -35,7 +35,7 @@
         </div>
 
       </div>
-
+<% items.forEach((item) => { %>
       <!-- THE CARD -->
       <div class="card 1">
 
@@ -43,28 +43,29 @@
         <div class="card-body">
 
           <!-- PRODUCT NAME -->
-          <h5 class="card-title">Item Name</h5>
+          <h5 class="card-title"><%= item.title %></h5>
 
           <!-- The First Row of Buttons -->
           <div>
+<% if (is_admin) { %>
             <button type="button" class="btn btn-danger">Delete</button>
             <button type="button" class="btn btn-warning">Edit</button>
+<% } %>
             <button type="button" class="btn btn-info">Favourite</button>
           </div>
 
           <!-- Product Image -->
-          <img src="" class="card-img-top" alt="Item image">
+          <img src="../docs/images/desktop1.png" class="card-img-top" alt="Item image">
 
           <!-- Price Tag -->
-          <p><span>1000</span> CAD</p>
+          <p><span><%= item.price %></span> CAD</p>
 
           <!-- Specifications Button -->
           <button type="button" class="btn btn-success">Specifications</button>
 
         </div>
-
+<% }); %>
       </div>
-
 
       <!-- Add the Footer from partials folder -->
       <%- include('./partials/_footer'); %>

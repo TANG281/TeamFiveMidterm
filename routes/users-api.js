@@ -8,6 +8,14 @@
 const express = require('express');
 const router = express.Router();
 const database = require('../db/queries/database');
+const cookieSession = require('cookie-session');
+
+
+router.use(cookieSession({
+  name: 'user_id',
+  keys: ['nindoking', 'dragonite', 'crobat'],
+  maxAge: 30 * 60 * 1000 // Cookies expire in 30 minutes
+}));
 
 // Login route
 router.get('/login/:id', (req, res) => {
@@ -39,28 +47,38 @@ router.get('/', (req, res) => {
 
 // Rendering Category page
 router.get('/items/categories/:category_id', (req, res) => {
-  // const user_id = req.session.user_id;
-  // const is_admin = req.session.is_admin;
-  const itemsToShow = []; // Array of item objects in a specific category
+  const user_id = req.session.user_id;
+  const is_admin = req.session.is_admin;
+  console.log(is_admin);
+  console.log(user_id);
   const categoryId = req.params.category_id;
+  console.log(categoryId);
   database.getItemsByCategory(categoryId)
-    .then(items => {
-      items.forEach(item => {
-        itemsToShow.push(item);
-      });
+  .then(items => {
+      // items.forEach((item) => {
+      const templateVars = {
+        user_id,
+        is_admin,
+        items
+      };
+      res.render('category', templateVars);
+      // console.log(item);
+      // itemsToShow.push(item);
     })
+    // .then(console.log(itemsToShow))
     .catch((err) => {
       console.log(err.message);
       res.send('An error occured');
     });
-
-  const templateVars = {
-    // user_id,
-    // is_admin,
-    itemsToShow
-  };
-  res.render('category', templateVars);
 });
+
+// const templateVars = {
+//   user_id,
+//   is_admin,
+//   itemsToShow: items
+// };
+// res.render('category', templateVars);
+// });
 
 // Rendering Item page
 router.get('/items/:item_id', (req, res) => {
