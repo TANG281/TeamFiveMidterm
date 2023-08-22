@@ -47,7 +47,7 @@
 
           <!-- The First Row of Buttons -->
           <div>
-<% if (is_admin) { %>
+<% if (is_admin === 'true') { %>
             <button type="button" class="btn btn-danger">Delete</button>
             <button type="button" class="btn btn-warning">Edit</button>
 <% } %>
@@ -55,7 +55,7 @@
           </div>
 
           <!-- Product Image -->
-          <img src="../docs/images/desktop1.png" class="card-img-top" alt="Item image">
+          <img src="../planning/images/desktop1.png" class="card-img-top" alt="Item Image">
 
           <!-- Price Tag -->
           <p><span><%= item.price %></span> CAD</p>
