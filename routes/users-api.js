@@ -28,13 +28,13 @@ router.get('/login/:id', (req, res) => {
 // Rendering Home page
 router.get('/', (req, res) => {
   // getting the value from the cookie
-  const user_id = req.session.user_id;
-  const is_admin = req.session.is_admin;
-  const templateVars = {
-    user_id,
-    is_admin
-  };
-  res.render('index.html', templateVars);
+  // const user_id = req.session.user_id;
+  // const is_admin = req.session.is_admin;
+  // const templateVars = {
+  //   user_id,
+  //   is_admin
+  // };
+  res.render('index.html');
 });
 
 // Rendering Category page
@@ -84,7 +84,6 @@ router.get('/items/:item_id', (req, res) => {
   };
   res.render('item.html', templateVars);
 });
-
 
 
 

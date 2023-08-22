@@ -111,7 +111,7 @@ const getFavouriteItems = (userId) => {
 const addFavoriteItem = (userId, itemId) => {
   const queryString = `INSERT INTO favourites (item_id, user_id) VALUES ($1, $2);`;
   return db
-    .query((queryString, [itemId, userId]))
+    .query(queryString, [itemId, userId])
     .then((data) => {
       return data.rows;
     })
@@ -121,7 +121,7 @@ const addFavoriteItem = (userId, itemId) => {
 const getSellerInfo = (itemId) => {
   const queryString = `SELECT users.name, users.email, users.phone_number FROM users JOIN items ON users.id = items.owner_id WHERE items.id = $1;`;
   return db
-    .query((queryString, [itemId]))
+    .query(queryString, [itemId])
     .then((data) => {
       return data.rows;
     })
