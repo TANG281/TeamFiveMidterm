@@ -9,6 +9,9 @@ const express = require('express');
 const router = express.Router();
 const database = require('../db/queries/database');
 const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
+
+router.use(cookieParser());
 
 
 router.use(cookieSession({
@@ -21,10 +24,13 @@ router.use(cookieSession({
 router.get('/login/:id', (req, res) => {
   // set user_id cookie
   res.cookie('user_id', req.params.id);
+
   // set is_admin cookie by calling database checkUserIsAdmin function
   database.checkUserIsAdmin(req.params.id)
     .then(is_admin => {
       res.cookie('is_admin', is_admin);
+     // req.session.is_admin = is_admin; // Set is_admin in req.session
+      console.log(is_admin)
       res.redirect('/');
     })
     .catch((err) => {
@@ -33,22 +39,10 @@ router.get('/login/:id', (req, res) => {
     });
 });
 
-// Rendering Home page
-router.get('/', (req, res) => {
-  // getting the value from the cookie
-  const user_id = req.session.user_id;
-  const is_admin = req.session.is_admin;
-  const templateVars = {
-    user_id,
-    is_admin
-  };
-  res.render('index', templateVars);
-});
-
 // Rendering Category page
 router.get('/items/categories/:category_id', (req, res) => {
-  const user_id = req.session.user_id;
-  const is_admin = req.session.is_admin;
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
   console.log(is_admin);
   console.log(user_id);
   const categoryId = req.params.category_id;
@@ -70,6 +64,18 @@ router.get('/items/categories/:category_id', (req, res) => {
       console.log(err.message);
       res.send('An error occured');
     });
+});
+
+// Rendering Home page
+router.get('/', (req, res) => {
+  // getting the value from the cookie
+  const user_id = req.session.user_id;
+  const is_admin = req.session.is_admin;
+  const templateVars = {
+    user_id,
+    is_admin
+  };
+  res.render('index', templateVars);
 });
 
 // const templateVars = {
