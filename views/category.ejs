@@ -55,13 +55,13 @@
           </div>
 
           <!-- Product Image -->
-          <img src="../planning/images/desktop1.png" class="card-img-top" alt="Item Image">
+          <img src=".<%=item.images_url%>" class="card-img-top" alt="Item Image">
 
           <!-- Price Tag -->
           <p><span><%= item.price %></span> CAD</p>
 
           <!-- Specifications Button -->
-          <button type="button" class="btn btn-success">Specifications</button>
+          <a href="/items/<%=item.id%>" type="button" class="btn btn-success">Specifications</a>
 
         </div>
 <% }); %>

@@ -43,10 +43,9 @@ router.get('/login/:id', (req, res) => {
 router.get('/items/categories/:category_id', (req, res) => {
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
-  console.log(is_admin);
-  console.log(user_id);
+
   const categoryId = req.params.category_id;
-  console.log(categoryId);
+
   database.getItemsByCategory(categoryId)
   .then(items => {
       // items.forEach((item) => {
@@ -69,8 +68,8 @@ router.get('/items/categories/:category_id', (req, res) => {
 // Rendering Home page
 router.get('/', (req, res) => {
   // getting the value from the cookie
-  const user_id = req.session.user_id;
-  const is_admin = req.session.is_admin;
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
   const templateVars = {
     user_id,
     is_admin
@@ -78,37 +77,29 @@ router.get('/', (req, res) => {
   res.render('index', templateVars);
 });
 
-// const templateVars = {
-//   user_id,
-//   is_admin,
-//   itemsToShow: items
-// };
-// res.render('category', templateVars);
-// });
+router.get('items/:item_id', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+  const itemId = Number(req.params.item_id);
 
-// Rendering Item page
-router.get('/items/:item_id', (req, res) => {
-  const user_id = req.session.user_id;
-  const is_admin = req.session.is_admin;
-  const itemToShow = []; // Array of item object in a specific category
-  const itemId = req.params.item_id;
-  database.getItemsById(itemId)
-    .then(item => {
-      itemToShow.push(item);
+  database.getItemById(itemId)
+  .then(item => {
+      // items.forEach((item) => {
+      const templateVars = {
+        user_id,
+        is_admin,
+        itemId,
+        item
+      };
+      res.render('item', templateVars);
+      console.log(templateVars);
     })
+
     .catch((err) => {
       console.log(err.message);
       res.send('An error occured');
     });
-
-  const templateVars = {
-    user_id,
-    is_admin,
-    itemToShow
-  };
-  res.render('item.html', templateVars);
-});
-
+})
 
 
 
