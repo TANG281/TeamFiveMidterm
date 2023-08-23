@@ -1,48 +1,49 @@
-<!-- NAVIGATION BAR -->
-<div id="Nav-Bar-Container">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <!-- NAVIGATION BAR -->
+  <div id="Nav-Bar-Container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
 
-    <div class="container-fluid">
+      <div class="container-fluid">
+
 
       <a class="navbar-brand" href="/">TeamFive</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-          <!-- CATEGORIES -->
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/api/users/items/categories/desktops"> Desktops</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/api/users/items/categories/laptops">Laptops</a>
-          </li>
+            <!-- CATEGORIES -->
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/api/users/items/categories/desktops"> Desktops</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/users/items/categories/laptops">Laptops</a>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/api/users/items/categories/miniPCs"> Mini-PC</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/users/items/categories/miniPCs"> Mini-PC</a>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/api/users/items/categories/phones">Phones</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/users/items/categories/phones">Phones</a>
+            </li>
 
-          <!-- USER ICON DROPDOWN MENU -->
+            <!-- USER ICON DROPDOWN MENU -->
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fa-solid fa-user"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-user"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-              <% if(is_admin === 'true') { %>
-                <li><a class="dropdown-item" href="#">Add Item</a></li>
-              <% } %>
+                <% if(is_admin === 'true') { %>
+                  <li><a class="dropdown-item" href="#">Add Item</a></li>
+                <% } %>
 
               <% if(!user_id) { %>
               <li><a class="dropdown-item" href="#">Login</a></li>
@@ -53,18 +54,28 @@
               <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
               <% } %>
               <li>
+                <hr class="dropdown-divider">
 
-              </li>
+                <% if(!user_id) { %>
+                <li><a class="dropdown-item" href="#">Login</a></li>
+                <% } %>
+                <% if(user_id) { %>
+                  <li><a class="dropdown-item" href="#">Favourites</a></li>
+                <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
+                <% } %>
+                <li>
 
-            </ul>
-          </li>
+                </li>
 
-        </ul>
+              </ul>
+            </li>
 
+          </ul>
+
+
+        </div>
 
       </div>
 
-    </div>
-
-  </nav>
-</div>
+    </nav>
+  </div>
