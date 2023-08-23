@@ -40,7 +40,7 @@ router.get('/login/:id', (req, res) => {
 router.get('/logout', (req, res) => {
   res.clearCookie();
   res.redirect('/');
-})
+});
 
 // Rendering Category page
 router.get('/items/categories/:category_id', (req, res) => {
@@ -56,6 +56,7 @@ router.get('/items/categories/:category_id', (req, res) => {
         is_admin,
         items
       };
+      console.log(items);
       res.render('category', templateVars);
     })
     .catch((err) => {
@@ -76,6 +77,27 @@ router.get('/', (req, res) => {
   res.render('index', templateVars);
 });
 
+// Rendering Favourite page
+router.get('/items/favourites', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+
+  database.getFavouriteItems(user_id)
+    .then(items => {
+      const templateVars = {
+        user_id,
+        is_admin,
+        items
+      };
+      res.render('favourite', templateVars);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.send('Favourite page error');
+    });
+});
+
+// Rendering Item page
 router.get('/items/:item_id', (req, res) => {
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
@@ -93,11 +115,12 @@ router.get('/items/:item_id', (req, res) => {
     console.log(templateVars);
   })
 
-    .catch((err) => {
-      console.log(err.message);
-      res.send('An error occured');
-    });
+  .catch((err) => {
+    console.log(err.message);
+    res.send('An error occured');
+  });
 });
+
 
 
 
