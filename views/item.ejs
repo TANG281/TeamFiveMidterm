@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Adds the Head Partial. -->
+<%- include('./partials/_head'); %>
+
+
+<!-- THE BODY -->
+<body>
+
+  <!-- Adds the Navigation Bar Partial. -->
+  <%- include('./partials/_navbar'); %>
+
+
+  <!-- MAIN CONTAINER -->
+  <main id="main-container" class="container">
+
+    <!-- Product Card -->
+    <section>
+
+      <div class="text-center">
+
+        <!-- Product Image -->
+        <img src="<%= item.images_url %>" class="rounded" alt="Product Image">
+
+        <!-- Product Information -->
+        <!-- Product Category -->
+        <div class="text-center"><strong><%=item.title %></strong><br>
+
+          <%=item.description%>
+
+        </div>
+
+        <!-- Contact Seller Button -->
+        <div class="d-grid gap-2 col-3 mx-auto">
+          <button class="btn btn-info" type="submit">Contact Seller</button>
+        </div>
+
+    </section>
+
+
+
+  </main>
+
+
+  <!-- Add the Footer from partials folder -->
+  <%- include('./partials/_footer'); %>
+
+</body>
+
+</html>
