@@ -38,6 +38,11 @@ router.get('/login/:id', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+  
+  res.clearCookie();
+  res.redirect('/');
+});
+
   res.clearCookie("is_admin");
   res.clearCookie("user_id");
   res.redirect('/api/users');
@@ -83,16 +88,16 @@ router.get('/items/:item_id', (req, res) => {
   const itemId = Number(req.params.item_id);
 
   database.getItemById(itemId)
-  .then(item => {
-    const templateVars = {
-      user_id,
-      is_admin,
-      itemId,
-      item
-    };
-    res.render('item', templateVars);
-    console.log(templateVars);
-  })
+    .then(item => {
+      const templateVars = {
+        user_id,
+        is_admin,
+        itemId,
+        item
+      };
+      res.render('item', templateVars);
+      console.log(templateVars);
+    })
 
     .catch((err) => {
       console.log(err.message);
@@ -100,6 +105,39 @@ router.get('/items/:item_id', (req, res) => {
     });
 });
 
+//Rendering add_item page for adding new items
+router.get('/items/add', (req, res) => {
+  res.render('add_edit');
+});
 
+//Post route for form submission when creating new item
+router.post('/items/create_new', (req, res) => {
+  //Extract data from the request body
+  const title = req.body.title;
+  const description = req.body.description;
+  const price = req.body.price;
+  const stockstatus = req.body.stockstatus;
+  const image_url = req.body.image_url;
+  const category = req.body.category;
+
+  // Insert the item into the database
+  database.addItem({
+    title,
+    description,
+    price,
+    is_available: stockstatus,
+    images_url: image_url,
+    category
+  })
+    .then(() => {
+      // Redirect to the category page where the item was added
+      res.redirect('/category');
+    })
+      .catch(error => {
+        // Handle errors if item insertion fails
+        console.error('Error adding item:', error);
+
+      });
+});
 
 module.exports = router;
