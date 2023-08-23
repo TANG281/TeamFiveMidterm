@@ -15,6 +15,10 @@ body {
       rgba(163, 208, 219, 1) 100%);
 }
 
+.container {
+  padding-top: 60px;
+}
+
 .navbar-expand-lg {
   top: 0;
   left: 0;
@@ -59,6 +63,9 @@ body {
   display: none;
 }
 
+.card-img-top {
+  width: 300px;
+}
 
 footer {
   padding: 1.5rem;
