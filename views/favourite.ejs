@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Adds the Head Partial. -->
+<%- include('./partials/_head'); %>
+
+
+  <!-- THE BODY -->
+<body>
+
+  <!-- Adds the Navigation Bar Partial. -->
+  <%- include('./partials/_navbar'); %>
+
+  <!-- THE MAIN CONTAINER -->
+  <!-- This container will hold product cards. -->
+  <main>
+
+
+      <!-- THE FILTER BAR -->
+      <div id="Filter-Function" class="bg-light container-fluid">
+
+        <p class="text-black-50">Filter by: </p>
+
+        <!-- Filter Section -->
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dropdown button
+          </button>
+
+          <!-- Available Filters  -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
+            <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- THE PRODUCT CARDS CONTAINER -->
+      <div id="Product-Cards-Container">
+
+      <!-- Query database and retrieve the list of all items in the database. -->
+      <% items.forEach((item) => { %>
+
+        <!-- CARD BODY -->
+        <div class="card-body">
+
+          <!-- PRODUCT NAME -->
+          <h5 class="card-title"><%= item.title %></h5>
+
+          <!-- The First Row of Buttons -->
+          <div>
+
+            <!-- If an Administrator-level user is logged in, display these
+                 buttons:
+             -->
+            <% if (is_admin === 'true') { %>
+              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-warning">Edit</button>
+            <% } %>
+
+            <!-- If an Regular User is logged in, display these buttons: -->
+            <% if (user_id) { %>
+              <button type="button" class="btn btn-info">Favourite</button>
+            <% } %>
+
+          </div>
+
+          <!-- Product Image -->
+          <img src="<%= item.images_url %>" class="card-img-top" alt="Item Image">
+
+          <!-- Price Tag -->
+          <p><span><%= item.price %></span> CAD</p>
+
+          <!-- Specifications Button -->
+          <a href="/api/users/items/<%=item.id%>" type="button" class="btn btn-success">Specifications</a>
+
+        </div>
+
+      <% }); %>
+
+      </div>
+
+  </main>
+
+
+  <!-- Add the Footer from partials folder -->
+  <%- include('./partials/_footer'); %>
+
+</body>
+
+</html>
