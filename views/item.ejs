@@ -9,11 +9,12 @@
 <!-- THE BODY -->
 <body>
 
+  <!-- Adds the Navigation Bar Partial. -->
+  <%- include('./partials/_navbar'); %>
+
+
   <!-- MAIN CONTAINER -->
   <main id="main-container" class="container">
-
-        <!-- Adds the Navigation Bar Partial. -->
-        <%- include('./partials/_navbar'); %>
 
     <!-- Product Card -->
     <section>
@@ -21,17 +22,13 @@
       <div class="text-center">
 
         <!-- Product Image -->
-        <img src="../images/desktop1.png" class="rounded" alt="Product Image">
+        <img src="<%= item.images_url %>" class="rounded" alt="Product Image">
 
         <!-- Product Information -->
         <!-- Product Category -->
-        <div class="text-center"><strong>Desktop</strong><br>
+        <div class="text-center"><strong><%=item.title %></strong><br>
 
-          Processor: Intel i3-10200: 3.5 GHz, 4 Cores [10th gen Intel® Core™]
-          Graphics: Intel® UHD Graphics
-          Memory: 16 GB Dual Channel DDR4 at 2666 MHz
-          Storage: M.2 SSD 2 TB
-          Wifi: Wifi 6
+          <%=item.description%>
 
         </div>
 
@@ -42,11 +39,13 @@
 
     </section>
 
-     <!-- Add the Footer from partials folder -->
-     <%- include('./partials/_footer'); %>
+
 
   </main>
 
+
+  <!-- Add the Footer from partials folder -->
+  <%- include('./partials/_footer'); %>
 
 </body>
 
