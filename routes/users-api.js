@@ -38,9 +38,15 @@ router.get('/login/:id', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+  
   res.clearCookie();
   res.redirect('/');
 });
+
+  res.clearCookie("is_admin");
+  res.clearCookie("user_id");
+  res.redirect('/api/users');
+})
 
 // Rendering Category page
 router.get('/items/categories/:category_id', (req, res) => {

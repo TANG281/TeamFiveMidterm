@@ -3,7 +3,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 
   background: rgb(163, 208, 219);
   background: linear-gradient(227deg,
@@ -15,18 +14,27 @@ body {
       rgba(163, 208, 219, 1) 100%);
 }
 
+
+.img {
+  max-width: 100%;
+}
+
+
+/*************************** NAVIGATION BAR ELEMENTS **************************/
+
+
+#navbarSupportedContent {
+  padding-top: 10px;
+}
+
 .navbar-expand-lg {
   top: 0;
   left: 0;
-  width: 100%;
-  display: flex;
-  position: fixed;
-  justify-content: space-between;
-  align-items: center;
+  width: 100vw;
+  margin-bottom: 2rem;
   z-index: 1000;
   /* Ensure the navigation bar is above other content */
 }
-
 
 .navbar-nav i {
 
@@ -36,18 +44,14 @@ body {
 
 }
 
-
 /* Custom CSS to change the color of icons */
 .fa-solid {
   color: rgb(34, 0, 255)
 }
 
-.card {
-  max-width: 18rem
-}
-
-.img {
-  max-width: 100%;
+/* Targets the Person Icon in the Nav Bar and aligns it with the rest of the elements. */
+#navbarDropdown i {
+  padding-top: 0px;
 }
 
 .input-group {
@@ -59,10 +63,72 @@ body {
   display: none;
 }
 
+.card-img-top {
+  width: 300px;
+}
+
+/************************** CATEGORY PAGE ELEMENTS ****************************/
+
+#Filter-Function {
+  width: 100vw;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#Product-Cards-Container {
+  width: 90vw;
+  margin-bottom: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: content;
+
+  border-radius: 5%;
+  padding:1rem;
+
+  height: 28rem;
+  max-width: 18rem;
+  margin-right: 1rem;
+
+}
+
+.card-body p {
+  text-align: center;
+}
+
+
+.card-title {
+  margin-bottom: 1rem;
+}
+
+#User-Buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+
+.card-body img {
+  max-height: 200px;
+  max-width: 250px;
+  margin-bottom: 1rem;
+}
+
+
+/***************************** FOOTER ELEMENTS ********************************/
+
 
 footer {
   padding: 1.5rem;
-  position: fixed;
   bottom: 0;
   margin: 0;
 }
