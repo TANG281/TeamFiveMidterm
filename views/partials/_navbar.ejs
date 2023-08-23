@@ -4,7 +4,7 @@
 
     <div class="container-fluid">
 
-      <a class="navbar-brand" href="#Home">TeamFive</a>
+      <a class="navbar-brand" href="/">TeamFive</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,11 +44,10 @@
                 <li><a class="dropdown-item" href="#">Add Item</a></li>
               <% } %>
 
-              <hr class="dropdown-divider">
-
               <% if(!user_id) { %>
               <li><a class="dropdown-item" href="#">Login</a></li>
               <% } %>
+
               <% if(user_id) { %>
                 <li><a class="dropdown-item" href="#">Favourites</a></li>
               <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
