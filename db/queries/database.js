@@ -99,7 +99,7 @@ const filterItems = (options, category) => {
 
 // userId from cookies session
 const getFavouriteItems = (userId) => {
-  const queryString = `SELECT items.* FROM items JOIN favourites ON items.id = favourites.item_id JOIN users ON users.id = favourites.user_id WHERE id = $1;`;
+  const queryString = `SELECT items.* FROM items JOIN favourites ON items.id = favourites.item_id JOIN users ON users.id = favourites.user_id WHERE users.id = $1;`;
   return db
     .query(queryString, [userId])
     .then((data) => {
@@ -140,6 +140,7 @@ const checkUserIsAdmin = (userId) => {
       };
     })
 };
+
 
 
 module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, checkUserIsAdmin };
