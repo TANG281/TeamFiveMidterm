@@ -19,13 +19,13 @@
       <!-- THE FILTER BAR -->
       <div id="Filter-Function" class="bg-light container-fluid">
 
-        <p class="text-black-50">Filter by: </p>
+        <p class="text-black-50">Filter Products By: </p>
 
         <!-- Filter Section -->
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Dropdown button
+            Filters
           </button>
 
           <!-- Available Filters  -->
@@ -38,19 +38,19 @@
       </div>
 
       <!-- THE PRODUCT CARDS CONTAINER -->
-      <div id="Product-Cards-Container">
+      <div id="Product-Cards-Container" class="container-fluid">
 
       <!-- Query database and retrieve the list of all items in the database. -->
       <% items.forEach((item) => { %>
 
         <!-- CARD BODY -->
-        <div class="card-body">
+        <div class="card-body bg-light">
 
           <!-- PRODUCT NAME -->
           <h5 class="card-title"><%= item.title %></h5>
 
           <!-- The First Row of Buttons -->
-          <div>
+          <div id="User-Buttons">
 
             <!-- If an Administrator-level user is logged in, display these
                  buttons:
