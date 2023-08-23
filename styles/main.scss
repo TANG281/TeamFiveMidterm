@@ -14,9 +14,6 @@ body {
       rgba(163, 208, 219, 1) 100%);
 }
 
-.container {
-  padding-top: 60px;
-
 
 .img {
   max-width: 100%;
@@ -74,8 +71,9 @@ body {
 
 #Filter-Function {
   width: 100vw;
-  padding-bottom: 1rem;
   margin-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 #Product-Cards-Container {
