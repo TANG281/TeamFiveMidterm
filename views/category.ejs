@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Clean up the Category Page's visual appearance.<!DOCTYPE html>
 <html lang="en">
 
 <!-- Adds the Head Partial. -->
@@ -15,46 +15,44 @@
   <!-- This container will hold product cards. -->
   <main>
 
+    <!-- THE FILTER BAR -->
+    <div id="Filter-Function" class="bg-light container-fluid">
 
-      <!-- THE FILTER BAR -->
-      <div id="Filter-Function" class="bg-light container-fluid">
+      <!-- Filter Section -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Filter By:
+        </button>
 
-        <p class="text-black-50">Filter by: </p>
-
-        <!-- Filter Section -->
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Dropdown button
-          </button>
-
-          <!-- Available Filters  -->
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
-            <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
-          </ul>
-        </div>
-
+        <!-- Available Filters  -->
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
+          <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
+        </ul>
       </div>
 
-      <!-- THE PRODUCT CARDS CONTAINER -->
-      <div id="Product-Cards-Container">
+    </div>
+
+
+    <!-- THE PRODUCT CARDS CONTAINER -->
+    <div id="Product-Cards-Container" class="container-fluid">
 
       <!-- Query database and retrieve the list of all items in the database. -->
       <% items.forEach((item) => { %>
 
         <!-- CARD BODY -->
-        <div class="card-body">
+        <div class="card-body bg-light">
 
           <!-- PRODUCT NAME -->
           <h5 class="card-title"><%= item.title %></h5>
 
           <!-- The First Row of Buttons -->
-          <div>
+          <div id="User-Buttons">
 
             <!-- If an Administrator-level user is logged in, display these
-                 buttons:
-             -->
+                buttons:
+            -->
             <% if (is_admin === 'true') { %>
               <button type="button" class="btn btn-danger">Delete</button>
               <button type="button" class="btn btn-warning">Edit</button>
@@ -80,7 +78,7 @@
 
       <% }); %>
 
-      </div>
+    </div>
 
   </main>
 
