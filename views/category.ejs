@@ -7,6 +7,7 @@
 
   <!-- THE BODY -->
 <body>
+
   <!-- Adds the Navigation Bar Partial. -->
   <%- include('./partials/_navbar'); %>
 
@@ -35,9 +36,12 @@
         </div>
 
       </div>
-<% items.forEach((item) => { %>
-      <!-- THE CARD -->
-      <div class="card 1">
+
+      <!-- THE PRODUCT CARDS CONTAINER -->
+      <div id="Product-Cards-Container">
+
+      <!-- Query database and retrieve the list of all items in the database. -->
+      <% items.forEach((item) => { %>
 
         <!-- CARD BODY -->
         <div class="card-body">
@@ -47,14 +51,22 @@
 
           <!-- The First Row of Buttons -->
           <div>
-<% if (is_admin === 'true') { %>
-            <button type="button" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-warning">Edit</button>
-<% } %>
-<% if (user_id) { %>
-            <button type="button" class="btn btn-info">Favourite</button>
+
+            <!-- If an Administrator-level user is logged in, display these
+                 buttons:
+             -->
+            <% if (is_admin === 'true') { %>
+              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-warning">Edit</button>
+            <% } %>
+
+            <!-- If an Regular User is logged in, display these buttons: -->
+            <% if (user_id) { %>
+              <button type="button" class="btn btn-info">Favourite</button>
+            <% } %>
+
           </div>
-<% } %>
+
           <!-- Product Image -->
           <img src="<%= item.images_url %>" class="card-img-top" alt="Item Image">
 
@@ -65,13 +77,16 @@
           <a href="/api/users/items/<%=item.id%>" type="button" class="btn btn-success">Specifications</a>
 
         </div>
-<% }); %>
+
+      <% }); %>
+
       </div>
 
-      <!-- Add the Footer from partials folder -->
-      <%- include('./partials/_footer'); %>
-
   </main>
+
+
+  <!-- Add the Footer from partials folder -->
+  <%- include('./partials/_footer'); %>
 
 </body>
 
