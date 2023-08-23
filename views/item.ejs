@@ -9,11 +9,12 @@
 <!-- THE BODY -->
 <body>
 
+  <!-- Adds the Navigation Bar Partial. -->
+  <%- include('./partials/_navbar'); %>
+
+
   <!-- MAIN CONTAINER -->
   <main id="main-container" class="container">
-
-        <!-- Adds the Navigation Bar Partial. -->
-        <%- include('./partials/_navbar'); %>
 
     <!-- Product Card -->
     <section>
@@ -38,11 +39,13 @@
 
     </section>
 
-     <!-- Add the Footer from partials folder -->
-     <%- include('./partials/_footer'); %>
+
 
   </main>
 
+
+  <!-- Add the Footer from partials folder -->
+  <%- include('./partials/_footer'); %>
 
 </body>
 

@@ -29,8 +29,6 @@ router.get('/login/:id', (req, res) => {
   database.checkUserIsAdmin(req.params.id)
     .then(is_admin => {
       res.cookie('is_admin', is_admin);
-      // req.session.is_admin = is_admin; // Set is_admin in req.session
-      console.log(is_admin);
       res.redirect('/');
     })
     .catch((err) => {
@@ -53,17 +51,13 @@ router.get('/items/categories/:category_id', (req, res) => {
 
   database.getItemsByCategory(categoryId)
     .then(items => {
-      // items.forEach((item) => {
       const templateVars = {
         user_id,
         is_admin,
         items
       };
       res.render('category', templateVars);
-      // console.log(item);
-      // itemsToShow.push(item);
     })
-    // .then(console.log(itemsToShow))
     .catch((err) => {
       console.log(err.message);
       res.send('An error occured');

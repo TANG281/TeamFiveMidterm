@@ -39,19 +39,24 @@
               <i class="fa-solid fa-user"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+              <% if(is_admin === 'true') { %>
+                <li><a class="dropdown-item" href="#">Add Item</a></li>
+              <% } %>
+
+              <hr class="dropdown-divider">
+
               <% if(!user_id) { %>
               <li><a class="dropdown-item" href="#">Login</a></li>
               <% } %>
               <% if(user_id) { %>
+                <li><a class="dropdown-item" href="#">Favourites</a></li>
               <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
               <% } %>
               <li>
-                <hr class="dropdown-divider">
+
               </li>
-              <% if(is_admin === 'true') { %>
-              <li><a class="dropdown-item" href="#">Add Item</a></li>
-              <% } %>
-              <li><a class="dropdown-item" href="#">Favourites</a></li>
+
             </ul>
           </li>
 

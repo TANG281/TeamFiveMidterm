@@ -7,13 +7,13 @@
 
   <!-- THE BODY -->
 <body>
+  <!-- Adds the Navigation Bar Partial. -->
+  <%- include('./partials/_navbar'); %>
 
   <!-- THE MAIN CONTAINER -->
   <!-- This container will hold product cards. -->
   <main>
 
-    <!-- Adds the Navigation Bar Partial. -->
-    <%- include('./partials/_navbar'); %>
 
       <!-- THE FILTER BAR -->
       <div id="Filter-Function" class="bg-light container-fluid">
@@ -51,9 +51,10 @@
             <button type="button" class="btn btn-danger">Delete</button>
             <button type="button" class="btn btn-warning">Edit</button>
 <% } %>
+<% if (user_id) { %>
             <button type="button" class="btn btn-info">Favourite</button>
           </div>
-
+<% } %>
           <!-- Product Image -->
           <img src="<%= item.images_url %>" class="card-img-top" alt="Item Image">
 
