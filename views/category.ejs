@@ -38,19 +38,19 @@
       </div>
 
       <!-- THE PRODUCT CARDS CONTAINER -->
-      <div id="Product-Cards-Container">
+      <div id="Product-Cards-Container" class="container-fluid">
 
       <!-- Query database and retrieve the list of all items in the database. -->
       <% items.forEach((item) => { %>
 
         <!-- CARD BODY -->
-        <div class="card-body">
+        <div class="card-body bg-light">
 
           <!-- PRODUCT NAME -->
           <h5 class="card-title"><%= item.title %></h5>
 
           <!-- The First Row of Buttons -->
-          <div>
+          <div id="User-Buttons">
 
             <!-- If an Administrator-level user is logged in, display these
                  buttons:
