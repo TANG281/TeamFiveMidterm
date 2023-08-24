@@ -8,6 +8,9 @@ const getItemsByCategory = (category) => {
     .then((data) => {
       return data.rows; // return an array of objects
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -18,6 +21,9 @@ const getItemById = (itemId) => {
     .then((data) => {
       return data.rows[0]; // return an object
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -26,8 +32,11 @@ const deleteItem = (itemId) => {
   return db
     .query(queryString, [itemId])
     .then((data) => {
-      return data.rows; // return the number of row deleted
+      return data.rowCount; // return the number of row deleted
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemData is data from the form, ownerId is the user id in the cookies session
@@ -37,8 +46,11 @@ const addItem = (itemData, ownerId) => {
   return db
     .query(queryString, [ownerId, itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category, NOW()])
     .then((data) => {
-      return data.rows; // return the number of rows posted?
+      return data.rowCount; // return the number of rows posted?
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemData is data from the form, itemId is from the URL eg.(req.params)
@@ -49,6 +61,9 @@ const editItem = (itemData, itemId) => {
     .then((data) => {
       return data.rows; // return the number of rows edited?
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // filter items
@@ -95,6 +110,10 @@ const filterItems = (options, category) => {
     .then((data) => {
       return data.rows;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
+
 };
 
 // userId from cookies session
@@ -105,16 +124,22 @@ const getFavouriteItems = (userId) => {
     .then((data) => {
       return data.rows;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // userId from cookies session, itemId from ?
 const addFavoriteItem = (userId, itemId) => {
   const queryString = `INSERT INTO favourites (item_id, user_id) VALUES ($1, $2);`;
   return db
-    .query((queryString, [itemId, userId]))
+    .query(queryString, [itemId, userId])
     .then((data) => {
-      return data.rows;
+      return data.rowCount;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // get the contact information of the seller, itemIDfrom the URL
@@ -125,6 +150,9 @@ const getSellerInfo = (itemId) => {
     .then((data) => {
       return data.rows;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // check if the logged in user is an admin
@@ -139,6 +167,9 @@ const checkUserIsAdmin = (userId) => {
         return 'false';
       };
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 
