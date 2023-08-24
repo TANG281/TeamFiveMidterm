@@ -14,7 +14,7 @@
 
  <!-- MAIN CONTAINER -->
  <main>
-  <form class="form-inline" action="/items/create_new" method="POST">
+  <form class="form-inline" action="/api/users/items/create_new" method="POST">
   <div class="input-group mb-3">
     <span class="input-group-text" id="title">Title</title></span>
     <input type="text" class="form-control" name="title" aria-label="title" aria-describedby="title" required>
@@ -27,16 +27,16 @@
 
   <div class="input-group mb-3">
     <span class="input-group-text" id="price">Price</span>
-    <input type="text" class="form-control" name="Price" aria-describedby="price" required>
+    <input type="text" class="form-control" name="price" aria-describedby="price" required>
   </div>
 
   <div class="input-group">
     <div class="input-group-text">
-      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus" value="instock"
+      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus" value=true
         aria-label="Radio button for item In stock" required>
       <span class="form-text me-2">In stock</span>
 
-      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus" value="outofstock"
+      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus" value=false
         aria-label="Radio button for item Out of stock" required>
       <span class="form-text">Out of stock</span>
     </div>
