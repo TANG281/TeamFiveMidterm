@@ -20,7 +20,9 @@ router.use(cookieSession({
   maxAge: 30 * 60 * 1000 // Cookies expire in 30 minutes
 }));
 
-// Login route
+
+// USER LOGIN ROUTE
+// [No login page provided, so this route will be triggered via the browser URL.]
 router.get('/login/:id', (req, res) => {
   // set user_id cookie
   res.cookie('user_id', req.params.id);
@@ -37,13 +39,29 @@ router.get('/login/:id', (req, res) => {
     });
 });
 
+
+// USER LOGOUT ROUTE
 router.get('/logout', (req, res) => {
   res.clearCookie("is_admin");
   res.clearCookie("user_id");
   res.redirect('/api/users');
 });
 
-// Rendering Category page
+
+// RENDER THE HOME PAGE [`index.ejs`]
+router.get('/', (req, res) => {
+  // getting the value from the cookie
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+  const templateVars = {
+    user_id,
+    is_admin
+  };
+  res.render('index', templateVars);
+});
+
+
+// RENDER THE CATEGORY PAGE [`category.ejs`]
 router.get('/items/categories/:category_id', (req, res) => {
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
@@ -66,17 +84,6 @@ router.get('/items/categories/:category_id', (req, res) => {
     });
 });
 
-// Rendering Home page
-router.get('/', (req, res) => {
-  // getting the value from the cookie
-  const user_id = req.cookies.user_id;
-  const is_admin = req.cookies.is_admin;
-  const templateVars = {
-    user_id,
-    is_admin
-  };
-  res.render('index', templateVars);
-});
 
 // Rendering Favourite page
 router.get('/items/favourites', (req, res) => {
@@ -121,6 +128,9 @@ router.get('/items/add', (req, res) => {
 
 // Rendering Item page
 router.get('/items/:item_id', (req, res) => {
+
+  console.log("GET Route Hit!");
+
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = Number(req.params.item_id);
@@ -137,10 +147,10 @@ router.get('/items/:item_id', (req, res) => {
       console.log(templateVars);
     })
 
-  .catch((err) => {
-    console.log(err.message);
-    res.send('An error occured');
-  });
+    .catch((err) => {
+      console.log(err.message);
+      res.send('An error occured');
+    });
 });
 
 
@@ -169,14 +179,47 @@ router.post('/items/create_new', (req, res) => {
 
       res.redirect('/category');
     })
-      .catch(error => {
-        // Handle errors if item insertion fails
-        console.error('Error adding item:', error);
+    .catch(error => {
+      // Handle errors if item insertion fails
+      console.error('Error adding item:', error);
 
-      });
+    });
 });
 
 
+// DELETE ITEM FROM DATABASE [Via a button in `category.ejs`]
+router.post('/items/delete/:item_id', (req, res) => {
+
+  console.log("The Items Delete Server Route is Being Triggered!");
+
+  // const is_admin = req.cookies.is_admin;
+
+  const item_id = Number(req.params.item_id);
+
+  // Call the database to delete the item.
+  database.deleteItem(item_id)
+    .then(items => {
+
+      console.log(`The ${items} item was deleted from the database!`);
+
+      // Since this is an AJAX Call, set Status Code to 202 ("Accepted"), and
+      // return it to the AJAX function.
+      res.status(202).send();
+
+    })
+    .catch((error) => {
+
+      console.log(`The deletion of item ${item_id} from the database FAILED!`);
+
+      // Since this is an AJAX Call, set Status Code to 500 ("Internal Server
+      // Error"), and return Error message as a json to the AJAX function.
+      res.status(500).json({ error: error.message });
+    });
+
+});
+
+
+// EXPORTS
 // //Rendering add_item page for Editing items
 // router.get('/items/:item_id/edit', (req, res) => {
 //   // Extract user_id and is_admin from cookies
@@ -184,6 +227,5 @@ router.post('/items/create_new', (req, res) => {
 //   const is_admin = req.cookies.is_admin;
 
 // });
-
 
 module.exports = router;
