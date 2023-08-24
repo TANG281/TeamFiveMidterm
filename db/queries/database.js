@@ -32,10 +32,10 @@ const deleteItem = (itemId) => {
 
 // itemData is data from the form, ownerId is the user id in the cookies session
 const addItem = (itemData, ownerId) => {
-  const queryString = `INSERT INTO items (owner_id, title, description, price, is_available, images_url, catergory, date_posted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+  const queryString = `INSERT INTO items (owner_id, title, description, price, is_available, images_url, category) VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   // To clarify if the category names are required in the SQL code in this case?
   return db
-    .query(queryString, [ownerId, itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category, NOW()])
+    .query(queryString, [ownerId, itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category])
     .then((data) => {
       return data.rows; // return the number of rows posted?
     })
