@@ -71,6 +71,10 @@
           <!-- Price Tag -->
           <p><span><%= item.price %></span> CAD</p>
 
+          <% if (!item.is_available) { %>
+            <span>SOLD OUT</span>
+          <% } %>
+
           <!-- Specifications Button -->
           <a href="/api/users/items/<%=item.id%>" type="button" class="btn btn-success">Specifications</a>
 

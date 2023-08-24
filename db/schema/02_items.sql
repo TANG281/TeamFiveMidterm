@@ -11,5 +11,5 @@ CREATE TABLE items (
   is_available BOOLEAN NOT NULL DEFAULT TRUE,
   images_url VARCHAR(255) NOT NULL,
   category VARCHAR(255) NOT NULL,
-  date_posted TIMESTAMP NOT NULL
+  date_posted TIMESTAMP NOT NULL DEFAULT NOW()
 );

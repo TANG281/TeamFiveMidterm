@@ -126,44 +126,20 @@ router.get('/items/add', (req, res) => {
   }
 });
 
-// Rendering Item page
-router.get('/items/:item_id', (req, res) => {
-
-  console.log("GET Route Hit!");
-
-  const user_id = req.cookies.user_id;
-  const is_admin = req.cookies.is_admin;
-  const itemId = Number(req.params.item_id);
-
-  database.getItemById(itemId)
-    .then(item => {
-      const templateVars = {
-        user_id,
-        is_admin,
-        itemId,
-        item
-      };
-      res.render('item', templateVars);
-      console.log(templateVars);
-    })
-
-    .catch((err) => {
-      console.log(err.message);
-      res.send('An error occured');
-    });
-});
-
-
 
 //Post route for form submission when creating new item
 router.post('/items/create_new', (req, res) => {
   //Extract data from the request body
   const title = req.body.title;
   const description = req.body.description;
-  const price = req.body.price;
+  const price = parseInt(req.body.price);
   const stockstatus = req.body.stockstatus;
   const image_url = req.body.image_url;
   const category = req.body.category;
+
+  const owner_id = parseInt(req.cookies.user_id);
+  console.log("Extra string to find what i'm looking for!");
+  console.log(owner_id);
 
   // Insert the item into the database
   database.addItem({
@@ -172,17 +148,16 @@ router.post('/items/create_new', (req, res) => {
     price,
     is_available: stockstatus,
     images_url: image_url,
-    category
-  })
+    category,
+  }, owner_id)
     .then(() => {
       // Redirect to the category page where the item was added
 
-      res.redirect('/category');
+      res.redirect('/api/users/items/categories/' + category);
     })
     .catch(error => {
       // Handle errors if item insertion fails
       console.error('Error adding item:', error);
-
     });
 });
 
@@ -217,6 +192,34 @@ router.post('/items/delete/:item_id', (req, res) => {
     });
 
 });
+
+// Rendering Item page
+router.get('/items/:item_id', (req, res) => {
+
+  console.log("GET Route Hit!");
+
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+  const itemId = Number(req.params.item_id);
+
+  database.getItemById(itemId)
+    .then(item => {
+      const templateVars = {
+        user_id,
+        is_admin,
+        itemId,
+        item
+      };
+      res.render('item', templateVars);
+      console.log(templateVars);
+    })
+
+    .catch((err) => {
+      console.log(err.message);
+      res.send('An error occured');
+    });
+});
+
 
 
 // EXPORTS
