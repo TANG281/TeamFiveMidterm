@@ -69,17 +69,34 @@ router.get('/items/categories/:category_id', (req, res) => {
   const categoryId = req.params.category_id;
 
   database.getItemsByCategory(categoryId)
+
     .then(items => {
-      const templateVars = {
-        user_id,
-        is_admin,
-        items
-      };
-      res.render('category', templateVars);
+      database.getFavouriteItemsId(user_id)
+        .then(favouriteItems => {
+          const idArray = [];
+          favouriteItems.forEach((favouriteItem) => {
+            idArray.push(favouriteItem.id);
+          });
+          const templateVars = {
+            user_id,
+            is_admin,
+            items,
+            idArray
+          };
+          // console.log(idArray);
+          // console.log(favouriteItems);
+          // console.log('SPACE LINE');
+          // console.log(items);
+          res.render('category', templateVars);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          res.send('Inner db function error');
+        });
     })
     .catch((err) => {
       console.log(err.message);
-      res.send('An error occured');
+      res.send('Outer db function error');
     });
 });
 
@@ -112,7 +129,7 @@ router.post('/items/add_favourite/:item_id', (req, res) => {
   database.addFavoriteItem(user_id, item_id)
     .then(itemCount => {
 
-      console.log(`Added ${itemCount} item to favourite for user_id ${user_id}`);
+      console.log(`Added ${itemCount} item to favourite for user with id ${user_id}`);
 
       // Since this is an AJAX Call, set Status Code to 202 ("Accepted"), and
       // return it to the AJAX function.
@@ -126,6 +143,23 @@ router.post('/items/add_favourite/:item_id', (req, res) => {
       // Error"), and return Error message as a json to the AJAX function.
       res.status(500).json({ error: error.message });
     });
+});
+
+// Remove an item from favourite
+router.post('items/remove_favourite/:item_id', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const item_id = Number(req.params.item_id);
+
+  database.removeFavouriteItem(item_id, user_id)
+    .then(itemCount => {
+      console.log((`Remove ${itemCount} from user ${user_id}'s favourite list`));
+      res.status(202).send();
+    })
+    .catch((error) => {
+      console.log(`Cannot remove favourite item ${item_id}!`);
+      res.status(500).json({ error: error.message });
+    });
+
 });
 
 //Rendering add_item page for adding new items
