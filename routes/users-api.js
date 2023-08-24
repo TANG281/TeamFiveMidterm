@@ -114,7 +114,8 @@ router.get('/items/add', (req, res) => {
   // Prepare template variables
   const templateVars = {
     user_id,
-    is_admin
+    is_admin,
+    item: null
   };
 
   if (!is_admin) {
@@ -220,38 +221,28 @@ router.get('/items/:item_id', (req, res) => {
     });
 });
 
+/* ---------------------------------------------------------------------------------*/
 
 // RENDERING add_edit page FOR DISPLAYING EDIT FORM FILLED WITH ITEM DETAILS
 router.get('/items/:item_id/edit', (req, res) => {
+
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = req.params.item_id;
 
-/*When a user accesses the route /items/add, the req.params.item_id will be 'add',
- and thus the condition itemId === 'add' will be true.
- if the route /items/1, req.params.item_id will be 1 and the condition itemId ==='add' will be false.
- This is how the route handler distinguishes between
- the case of adding a new item and the case of editing an existing item.*/
 
-  if (itemId === 'add') {
-    // Render the form for adding a new item
-    const templateVars = {
-      user_id,
-      is_admin,
-      item: null, // set the item to null since it's a new item
-    };
-    res.render('add_edit', templateVars);
-  } else {
-    // Fetch the item data from the database based on itemId
+ // Fetch the item data from the database based on itemId
     database.getItemById(itemId)
       .then(data => {
-        if (data && data.rows && data.rows.length > 0) {
-          const item = data.rows[0];
+         console.log("Data:", data);
+        if (data) {
+          const item = data;
           const templateVars = {
             user_id,
             is_admin,
             item, // Pass the fetched item data
           };
+
           res.render('add_edit', templateVars); // Render the edit form with the item data
         } else {
           // Handle the case where no data was found
@@ -262,11 +253,12 @@ router.get('/items/:item_id/edit', (req, res) => {
         console.error(err);
         res.status(500).send('An error occurred.');
       });
-  }
+
 });
 
 // POST ROUTE TO UPDATE THE ITEM
 router.post('/items/:item_id/update', (req, res) => {
+
   const itemId = Number(req.params.item_id);
   const itemData = req.body;
 
