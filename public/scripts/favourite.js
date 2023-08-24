@@ -5,10 +5,6 @@
 // Checks if the HTML document is fully loaded.
 $(document).ready(function() {
 
-  // WORK ON FILTER FUNCTION TOO!
-
-
-
   // DELETE AN ITEM FROM THE DATABASE
   //
   // When the `Favourite` button (`btn-info`) is clicked in a product card,
@@ -56,10 +52,7 @@ $(document).ready(function() {
       .then(() => {
 
         console.log('OK');
-          // // REMOVE ITEM CARD FROM `category` PAGE
-          // // If the database successfully deleted the element from the backend,
-          // // immediately remove the card where the `Delete` button was clicked.
-          // $(event.target).closest(".card-body").hide();
+          // This is where to implement the heart filled/unfilled feature
 
       });
 
