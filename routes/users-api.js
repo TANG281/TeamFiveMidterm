@@ -98,6 +98,27 @@ router.get('/items/favourites', (req, res) => {
     });
 });
 
+//Rendering add_item page for adding new items
+router.get('/items/add', (req, res) => {
+  // Extract user_id and is_admin from cookies
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+
+  // Prepare template variables
+  const templateVars = {
+    user_id,
+    is_admin
+  };
+
+  if (!is_admin) {
+    res.redirect('/');
+  } else {
+
+  // Render the 'add_edit' template and pass template variables
+  res.render('add_edit', templateVars);
+  }
+});
+
 // Rendering Item page
 router.get('/items/:item_id', (req, res) => {
   const user_id = req.cookies.user_id;
@@ -122,26 +143,7 @@ router.get('/items/:item_id', (req, res) => {
   });
 });
 
-//Rendering add_item page for adding new items
-router.get('/items/add', (req, res) => {
-  // Extract user_id and is_admin from cookies
-  const user_id = req.cookies.user_id;
-  const is_admin = req.cookies.is_admin;
 
-  // Prepare template variables
-  const templateVars = {
-    user_id,
-    is_admin
-  };
-
-  if (!is_admin) {
-    res.redirect('/');
-  } else {
-
-  // Render the 'add_edit' template and pass template variables
-  res.render('add_edit', templateVars);
-  }
-});
 
 //Post route for form submission when creating new item
 router.post('/items/create_new', (req, res) => {
@@ -164,7 +166,7 @@ router.post('/items/create_new', (req, res) => {
   })
     .then(() => {
       // Redirect to the category page where the item was added
-      
+
       res.redirect('/category');
     })
       .catch(error => {
@@ -173,6 +175,15 @@ router.post('/items/create_new', (req, res) => {
 
       });
 });
+
+
+// //Rendering add_item page for Editing items
+// router.get('/items/:item_id/edit', (req, res) => {
+//   // Extract user_id and is_admin from cookies
+//   const user_id = req.cookies.user_id;
+//   const is_admin = req.cookies.is_admin;
+
+// });
 
 
 module.exports = router;
