@@ -20,6 +20,51 @@ router.use(cookieSession({
   maxAge: 30 * 60 * 1000 // Cookies expire in 30 minutes
 }));
 
+const getRecipientId = (item_id) => {
+
+  return database.getAdminByItemId(item_id)
+    .then((admin) => {
+      console.log(admin)
+      return admin.owner_id;
+    })
+    .catch((err) => {
+      console.log("an error occurred");
+    })
+}
+
+router.post('/items/message/:item_id', (req, res) => {
+  const item_id = Number(req.params.item_id);
+  const userId = parseInt(req.body.userId);
+
+
+
+  getRecipientId(item_id)
+  .then((recipientId) => {
+    const content = req.body.message;
+    const currentDate = new Date();
+
+    const messageInfo = {
+        item_id,
+        userId,
+        recipientId,
+        content,
+        date: currentDate
+    };
+
+    console.log(messageInfo);
+
+    return database.addMessage(messageInfo);
+  })
+  .then(() => {
+    console.log("message successfully added to database");
+  })
+  .catch((err) => {
+    console.log("Error: ", err.message);
+  })
+
+  console.log("Message post request being hit");
+})
+
 
 // USER LOGIN ROUTE
 // [No login page provided, so this route will be triggered via the browser URL.]
@@ -75,7 +120,6 @@ router.get('/items/categories/:category_id', (req, res) => {
         is_admin,
         items
       };
-      console.log(items);
       res.render('category', templateVars);
     })
     .catch((err) => {
@@ -126,7 +170,6 @@ router.get('/items/add', (req, res) => {
   }
 });
 
-
 //Post route for form submission when creating new item
 router.post('/items/create_new', (req, res) => {
   //Extract data from the request body
@@ -138,8 +181,6 @@ router.post('/items/create_new', (req, res) => {
   const category = req.body.category;
 
   const owner_id = parseInt(req.cookies.user_id);
-  console.log("Extra string to find what i'm looking for!");
-  console.log(owner_id);
 
   // Insert the item into the database
   database.addItem({
@@ -152,7 +193,6 @@ router.post('/items/create_new', (req, res) => {
   }, owner_id)
     .then(() => {
       // Redirect to the category page where the item was added
-
       res.redirect('/api/users/items/categories/' + category);
     })
     .catch(error => {
@@ -196,8 +236,6 @@ router.post('/items/delete/:item_id', (req, res) => {
 // Rendering Item page
 router.get('/items/:item_id', (req, res) => {
 
-  console.log("GET Route Hit!");
-
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = Number(req.params.item_id);
@@ -211,7 +249,6 @@ router.get('/items/:item_id', (req, res) => {
         item
       };
       res.render('item', templateVars);
-      console.log(templateVars);
     })
 
     .catch((err) => {
@@ -219,16 +256,5 @@ router.get('/items/:item_id', (req, res) => {
       res.send('An error occured');
     });
 });
-
-
-
-// EXPORTS
-// //Rendering add_item page for Editing items
-// router.get('/items/:item_id/edit', (req, res) => {
-//   // Extract user_id and is_admin from cookies
-//   const user_id = req.cookies.user_id;
-//   const is_admin = req.cookies.is_admin;
-
-// });
 
 module.exports = router;
