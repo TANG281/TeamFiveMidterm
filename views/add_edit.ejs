@@ -14,30 +14,32 @@
 
  <!-- MAIN CONTAINER -->
  <main>
-  <form class="form-inline" action="/api/users/items/create_new" method="POST">
+
+  <!-- TO CHECK WHETHER ADMIN NEEDS TO EDIT OR ADD NEW ITEM -->
+  <form class="form-inline" action="<%= item ? `/api/users/items/${item.id}/update` : '/api/users/items/create_new' %>" method="POST">
+
+    <!-- POPULATE EACH FIELD VALUE BASED ON THE ITEM OBJECT'S PROPERTIES -->
   <div class="input-group mb-3">
     <span class="input-group-text" id="title">Title</title></span>
-    <input type="text" class="form-control" name="title" aria-label="title" aria-describedby="title" required>
+    <input type="text" class="form-control" name="title" aria-label="title" aria-describedby="title" value="<%= item ? item.title : '' %>" required>
   </div>
 
   <div class="input-group mb-3">
     <span class="input-group-text">Description</span>
-    <textarea class="form-control" aria-label="description" name="description"></textarea>
+    <textarea class="form-control" aria-label="description" name="description" value ="<%= item ? item.description : '' %>"></textarea>
   </div>
 
   <div class="input-group mb-3">
     <span class="input-group-text" id="price">Price</span>
-    <input type="text" class="form-control" name="price" aria-describedby="price" required>
+    <input type="text" class="form-control" name="price" aria-describedby="price" value="<%= item ? item.price : '' %>"  required>
   </div>
 
   <div class="input-group">
     <div class="input-group-text">
-      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus" value=true
-        aria-label="Radio button for item In stock" required>
+      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus"  aria-label="Radio button for item In stock" value="true" <%= item && item.stockstatus ? 'checked' : '' %> required>
       <span class="form-text me-2">In stock</span>
 
-      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus" value=false
-        aria-label="Radio button for item Out of stock" required>
+      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus"  aria-label="Radio button for item Out of stock" value="false" <%= item && !item.stockstatus ? 'checked' : '' %> required>
       <span class="form-text">Out of stock</span>
     </div>
   </div>
@@ -45,17 +47,17 @@
   <div class="mb-3">
     <div class="input-group">
       <span class="input-group-text" id="image_url">Item Image URL</span>
-      <input type="text" class="form-control" name="image_url" id="image_url" aria-describedby="image_url" required>
+      <input type="text" class="form-control" name="image_url" id="image_url" aria-describedby="image_url" value="<%= item ? item.image_url : '' %>" required>
     </div>
   </div>
 
   <div class="input-group mb-3">
     <span class="input-group-text" id="category">Category</span>
-    <input type="text" class="form-control" aria-label="Category"  name="category" aria-describedby="category" required>
+    <input type="text" class="form-control" aria-label="Category"  name="category" aria-describedby="category" value="<%= item ? item.category : '' %>" required>
   </div>
 
   <div>
-    <a href=""><input class="btn btn-outline-primary" type="submit" value="Save"></a>
+    <input class="btn btn-outline-primary" type="submit" value="<%= item ? 'Update' : 'Save' %>">
     <input class="btn btn-outline-secondary" type="reset" value="Reset">
   </div>
 </form>
