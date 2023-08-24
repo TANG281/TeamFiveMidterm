@@ -129,6 +129,19 @@ const getFavouriteItems = (userId) => {
     });
 };
 
+// userId from cookies session
+const getFavouriteItemsId = (userId) => {
+  const queryString = `SELECT items.id FROM items JOIN favourites ON items.id = favourites.item_id JOIN users ON users.id = favourites.user_id WHERE users.id = $1;`;
+  return db
+    .query(queryString, [userId])
+    .then((data) => {
+      return data.rows;
+    })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
+};
+
 // userId from cookies session, itemId from ?
 const addFavoriteItem = (userId, itemId) => {
   const queryString = `INSERT INTO favourites (item_id, user_id) VALUES ($1, $2);`;
@@ -141,6 +154,20 @@ const addFavoriteItem = (userId, itemId) => {
       console.log('database query error', error);
     });
 };
+
+// remove item from favourite list
+const removeFavouriteItem = (item_id, user_id) => {
+  const queryString = `DELETE FROM favourites WHERE item_id = $1 AND user_id = $2;`;
+  return db
+    .query(queryString, [item_id, user_id])
+    .then((data) => {
+      return data.rowCount;
+    })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
+};
+
 
 // get the contact information of the seller, itemIDfrom the URL
 const getSellerInfo = (itemId) => {
@@ -174,4 +201,4 @@ const checkUserIsAdmin = (userId) => {
 
 
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, checkUserIsAdmin };
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, getFavouriteItemsId, addFavoriteItem, removeFavouriteItem, getSellerInfo, checkUserIsAdmin };
