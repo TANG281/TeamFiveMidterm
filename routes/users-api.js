@@ -75,7 +75,6 @@ router.get('/items/categories/:category_id', (req, res) => {
         is_admin,
         items
       };
-      console.log(items);
       res.render('category', templateVars);
     })
     .catch((err) => {
@@ -105,6 +104,30 @@ router.get('/items/favourites', (req, res) => {
     });
 });
 
+// Add an item to favourite
+router.post('/items/add_favourite/:item_id', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const item_id = Number(req.params.item_id);
+
+  database.addFavoriteItem(user_id, item_id)
+    .then(itemCount => {
+
+      console.log(`Added ${itemCount} item to favourite for user_id ${user_id}`);
+
+      // Since this is an AJAX Call, set Status Code to 202 ("Accepted"), and
+      // return it to the AJAX function.
+      res.status(202).send();
+    })
+    .catch((error) => {
+
+      console.log(`Cannot favourite item ${item_id}!`);
+
+      // Since this is an AJAX Call, set Status Code to 500 ("Internal Server
+      // Error"), and return Error message as a json to the AJAX function.
+      res.status(500).json({ error: error.message });
+    });
+});
+
 //Rendering add_item page for adding new items
 router.get('/items/add', (req, res) => {
   // Extract user_id and is_admin from cookies
@@ -121,8 +144,8 @@ router.get('/items/add', (req, res) => {
     res.redirect('/');
   } else {
 
-  // Render the 'add_edit' template and pass template variables
-  res.render('add_edit', templateVars);
+    // Render the 'add_edit' template and pass template variables
+    res.render('add_edit', templateVars);
   }
 });
 
@@ -198,9 +221,9 @@ router.post('/items/delete/:item_id', (req, res) => {
 
   // Call the database to delete the item.
   database.deleteItem(item_id)
-    .then(items => {
+    .then(item => {
 
-      console.log(`The ${items} item was deleted from the database!`);
+      console.log(`${item} item was deleted from the database!`);
 
       // Since this is an AJAX Call, set Status Code to 202 ("Accepted"), and
       // return it to the AJAX function.
