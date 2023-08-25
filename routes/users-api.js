@@ -223,7 +223,8 @@ router.get('/items/add', (req, res) => {
   // Prepare template variables
   const templateVars = {
     user_id,
-    is_admin
+    is_admin,
+    item: null
   };
 
   if (!is_admin) {
@@ -241,8 +242,8 @@ router.post('/items/create_new', (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
   const price = parseInt(req.body.price);
-  const stockstatus = req.body.stockstatus;
-  const image_url = req.body.image_url;
+  const stockstatus = req.body.is_available;
+  const images_url = req.body.images_url;
   const category = req.body.category;
 
   const owner_id = parseInt(req.cookies.user_id);
@@ -253,7 +254,7 @@ router.post('/items/create_new', (req, res) => {
     description,
     price,
     is_available: stockstatus,
-    images_url: image_url,
+    images_url: images_url,
     category,
   }, owner_id)
     .then(() => {
@@ -322,6 +323,8 @@ router.get('/items/:item_id', (req, res) => {
     });
 });
 
+/* ---------------------------------------------------------------------------------*/
+
 router.get('/messages', (req, res) => {
 
   const user_id = req.cookies.user_id;
@@ -341,62 +344,55 @@ router.get('/messages', (req, res) => {
 })
 
 // RENDERING add_edit page FOR DISPLAYING EDIT FORM FILLED WITH ITEM DETAILS
-router.get('/items/:item_id/edit', (req, res) => {
+router.get('/items/edit/:item_id', (req, res) => {
+
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = req.params.item_id;
 
-/*When a user accesses the route /items/add, the req.params.item_id will be 'add',
- and thus the condition itemId === 'add' will be true.
- if the route /items/1, req.params.item_id will be 1 and the condition itemId ==='add' will be false.
- This is how the route handler distinguishes between
- the case of adding a new item and the case of editing an existing item.*/
+  // Fetch the item data from the database based on itemId
+  database.getItemById(itemId)
+    .then(data => {
+      if (data) {
+        const item = data;
+        const templateVars = {
+          user_id,
+          is_admin,
+          item, // Pass the fetched item data
+        };
 
-  if (itemId === 'add') {
-    // Render the form for adding a new item
-    const templateVars = {
-      user_id,
-      is_admin,
-      item: null, // set the item to null since it's a new item
-    };
-    res.render('add_edit', templateVars);
-  } else {
-    // Fetch the item data from the database based on itemId
-    database.getItemById(itemId)
-      .then(data => {
-        if (data && data.rows && data.rows.length > 0) {
-          const item = data.rows[0];
-          const templateVars = {
-            user_id,
-            is_admin,
-            item, // Pass the fetched item data
-          };
-          res.render('add_edit', templateVars); // Render the edit form with the item data
-        } else {
-          // Handle the case where no data was found
-          res.status(404).send('Item not found.');
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send('An error occurred.');
-      });
-  }
+        res.render('add_edit', templateVars); // Render the edit form with the item data
+      } else {
+        // Handle the case where no data was found
+        res.status(404).send('Item not found.');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('An error occurred.');
+    });
+
 });
-
+/************************************************************************/
 // POST ROUTE TO UPDATE THE ITEM
-router.post('/items/:item_id/update', (req, res) => {
+router.post('/items/edit/:item_id', (req, res) => {
+
   const itemId = Number(req.params.item_id);
   const itemData = req.body;
+  console.log(req.body);
+  let availability = true;
+  if (itemData.is_available === 'false') {
+    availability = false;
+  }
 
   // Update the item data in the database
-  database.editItem(itemId, itemData)
+  database.editItem(itemData, itemId, availability)
     .then(() => {
       res.redirect(`/api/users/items/${itemId}`); // Redirect to the item's details page
     })
     .catch(error => {
       console.error(error);
-      res.status(500).send('An error occurred.');
+      res.status(500).send('POST error occurred');
     });
 });
 
