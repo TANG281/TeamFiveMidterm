@@ -66,17 +66,21 @@ const editItem = (itemData, itemId,availability) => {
     });
 };
 
+
 // filter items
 const filterItems = (options, category) => {
 
-  const queryParams = [];
+  // console.log(options, category);
+  // console.log(options.is_available);
 
-  const queryString = `SELECT * FROM items `;
+  const queryParams = [category];
+  let queryString = `SELECT * FROM items `;
+  let conditionString = '';
 
-  const conditionString = '';
 
+  // PRICE FILTERS
   if (options.minPrice) {
-    if (queryParams.length > 0) {
+    if (queryParams.length > 1) {
       conditionString += ` AND `;
     }
     queryParams.push(`${options.minPrice}`);
@@ -84,37 +88,52 @@ const filterItems = (options, category) => {
   };
 
   if (options.maxPrice) {
-    if (queryParams.length > 0) {
+    if (queryParams.length > 1) {
       conditionString += ` AND `;
     }
     queryParams.push(`${options.maxPrice}`);
     conditionString += `price <= $${queryParams.length}`;
   }
 
-  if (options.is_available) {
-    if (queryParams.length > 0) {
+
+  // AVAILABILITY FILTER
+  //
+  // I changed the first check from `options.is_available` to
+  // `(options.is_available !== undefined` because if the `is_available` value
+  // was `false` (there is no stock), the original conditional check would fail.
+  if (options.is_available !== undefined) {
+    console.log("The options.is_available is tripped!");
+    if (queryParams.length > 1) {
       conditionString += ` AND `;
     }
     queryParams.push(`${options.is_available}`);
+    // console.log(queryParams);
     conditionString += `is_available = $${queryParams.length}`;
   }
 
+  // console.log(conditionString);
+
+
+  // APPEND THE CONDITION STRING (if it is not empty)
   if (conditionString.length > 0) {
-    queryString += ` WHERE category = $${queryParams.length + 1}` + conditionString + `;`;
+    queryString += `WHERE category = $1 AND ${conditionString};`;
   }
 
-  queryParams.push(category);
+  // console.log(queryParams, queryString);
 
+
+  // DATABASE QUERY
   return db
     .query(queryString, queryParams)
     .then((data) => {
+      // console.log(data.rows);
       return data.rows;
     })
     .catch((error) => {
       console.log('database query error', error);
     });
-
 };
+
 
 // userId from cookies session
 const getFavouriteItems = (userId) => {
