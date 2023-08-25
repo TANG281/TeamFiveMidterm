@@ -7,7 +7,7 @@ const getItemsByCategory = (category) => {
     .query(queryString, [category])
     .then((data) => {
       return data.rows; // return an array of objects
-    })
+    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -17,7 +17,7 @@ const getItemById = (itemId) => {
     .query(queryString, [itemId])
     .then((data) => {
       return data.rows[0]; // return an object
-    })
+    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -27,7 +27,7 @@ const deleteItem = (itemId) => {
     .query(queryString, [itemId])
     .then((data) => {
       return data.rows; // return the number of row deleted
-    })
+    });
 };
 
 // itemData is data from the form, ownerId is the user id in the cookies session
@@ -38,7 +38,7 @@ const addItem = (itemData, ownerId) => {
     .query(queryString, [ownerId, itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category])
     .then((data) => {
       return data.rows; // return the number of rows posted?
-    })
+    });
 };
 
 // itemData is data from the form, itemId is from the URL eg.(req.params)
@@ -48,20 +48,24 @@ const editItem = (itemData, itemId) => {
     .query(queryString, [itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category, itemId]) // do not modify the date_posted column because we are only editing the item info
     .then((data) => {
       return data.rows; // return the number of rows edited?
-    })
+    });
 };
+
 
 // filter items
 const filterItems = (options, category) => {
 
-  const queryParams = [];
+  // console.log(options, category);
+  // console.log(options.is_available);
 
-  const queryString = `SELECT * FROM items `;
+  const queryParams = [category];
+  let queryString = `SELECT * FROM items `;
+  let conditionString = '';
 
-  const conditionString = '';
 
+  // PRICE FILTERS
   if (options.minPrice) {
-    if (queryParams.length > 0) {
+    if (queryParams.length > 1) {
       conditionString += ` AND `;
     }
     queryParams.push(`${options.minPrice}`);
@@ -69,33 +73,49 @@ const filterItems = (options, category) => {
   };
 
   if (options.maxPrice) {
-    if (queryParams.length > 0) {
+    if (queryParams.length > 1) {
       conditionString += ` AND `;
     }
     queryParams.push(`${options.maxPrice}`);
     conditionString += `price <= $${queryParams.length}`;
   }
 
-  if (options.is_available) {
-    if (queryParams.length > 0) {
+
+  // AVAILABILITY FILTER
+  //
+  // I changed the first check from `options.is_available` to
+  // `(options.is_available !== undefined` because if the `is_available` value
+  // was `false` (there is no stock), the original conditional check would fail.
+  if (options.is_available !== undefined) {
+    console.log("The options.is_available is tripped!");
+    if (queryParams.length > 1) {
       conditionString += ` AND `;
     }
     queryParams.push(`${options.is_available}`);
+    // console.log(queryParams);
     conditionString += `is_available = $${queryParams.length}`;
   }
 
+  // console.log(conditionString);
+
+
+  // APPEND THE CONDITION STRING (if it is not empty)
   if (conditionString.length > 0) {
-    queryString += ` WHERE category = $${queryParams.length + 1}` + conditionString + `;`;
+    queryString += `WHERE category = $1 AND ${conditionString};`;
   }
 
-  queryParams.push(category);
+  // console.log(queryParams, queryString);
 
+
+  // DATABASE QUERY
   return db
     .query(queryString, queryParams)
     .then((data) => {
+      // console.log(data.rows);
       return data.rows;
-    })
+    });
 };
+
 
 // userId from cookies session
 const getFavouriteItems = (userId) => {
@@ -104,7 +124,7 @@ const getFavouriteItems = (userId) => {
     .query(queryString, [userId])
     .then((data) => {
       return data.rows;
-    })
+    });
 };
 
 // userId from cookies session, itemId from ?
@@ -114,7 +134,7 @@ const addFavoriteItem = (userId, itemId) => {
     .query((queryString, [itemId, userId]))
     .then((data) => {
       return data.rows;
-    })
+    });
 };
 
 // get the contact information of the seller, itemIDfrom the URL
@@ -124,7 +144,7 @@ const getSellerInfo = (itemId) => {
     .query((queryString, [itemId]))
     .then((data) => {
       return data.rows;
-    })
+    });
 };
 
 // check if the logged in user is an admin
@@ -138,7 +158,7 @@ const checkUserIsAdmin = (userId) => {
       } else {
         return 'false';
       };
-    })
+    });
 };
 
 
