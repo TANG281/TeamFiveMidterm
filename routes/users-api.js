@@ -83,10 +83,6 @@ router.get('/items/categories/:category_id', (req, res) => {
             items,
             idArray
           };
-          // console.log(idArray);
-          // console.log(favouriteItems);
-          // console.log('SPACE LINE');
-          // console.log(items);
           res.render('category', templateVars);
         })
         .catch((err) => {
@@ -108,16 +104,28 @@ router.get('/items/favourites', (req, res) => {
 
   database.getFavouriteItems(user_id)
     .then(items => {
-      const templateVars = {
-        user_id,
-        is_admin,
-        items
-      };
-      res.render('favourite', templateVars);
+      database.getFavouriteItemsId(user_id)
+        .then(favouriteItems => {
+          const idArray = [];
+          favouriteItems.forEach((favouriteItem) => {
+            idArray.push(favouriteItem.id);
+          });
+          const templateVars = {
+            user_id,
+            is_admin,
+            items,
+            idArray
+          };
+          res.render('category', templateVars);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          res.send('Inner db function error');
+        });
     })
     .catch((err) => {
       console.log(err.message);
-      res.send('Favourite page error');
+      res.send('Outer db function error');
     });
 });
 
@@ -146,7 +154,7 @@ router.post('/items/add_favourite/:item_id', (req, res) => {
 });
 
 // Remove an item from favourite
-router.post('items/remove_favourite/:item_id', (req, res) => {
+router.post('/items/remove_favourite/:item_id', (req, res) => {
   const user_id = req.cookies.user_id;
   const item_id = Number(req.params.item_id);
 
