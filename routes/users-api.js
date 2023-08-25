@@ -122,8 +122,8 @@ router.get('/items/add', (req, res) => {
     res.redirect('/');
   } else {
 
-  // Render the 'add_edit' template and pass template variables
-  res.render('add_edit', templateVars);
+    // Render the 'add_edit' template and pass template variables
+    res.render('add_edit', templateVars);
   }
 });
 
@@ -197,8 +197,6 @@ router.post('/items/delete/:item_id', (req, res) => {
 // Rendering Item page
 router.get('/items/:item_id', (req, res) => {
 
-  console.log("GET Route Hit!");
-
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = Number(req.params.item_id);
@@ -212,7 +210,6 @@ router.get('/items/:item_id', (req, res) => {
         item
       };
       res.render('item', templateVars);
-      console.log(templateVars);
     })
 
     .catch((err) => {
@@ -224,53 +221,55 @@ router.get('/items/:item_id', (req, res) => {
 /* ---------------------------------------------------------------------------------*/
 
 // RENDERING add_edit page FOR DISPLAYING EDIT FORM FILLED WITH ITEM DETAILS
-router.get('/items/:item_id/edit', (req, res) => {
+router.get('/items/edit/:item_id', (req, res) => {
 
   const user_id = req.cookies.user_id;
   const is_admin = req.cookies.is_admin;
   const itemId = req.params.item_id;
 
+  // Fetch the item data from the database based on itemId
+  database.getItemById(itemId)
+    .then(data => {
+      if (data) {
+        const item = data;
+        const templateVars = {
+          user_id,
+          is_admin,
+          item, // Pass the fetched item data
+        };
 
- // Fetch the item data from the database based on itemId
-    database.getItemById(itemId)
-      .then(data => {
-         console.log("Data:", data);
-        if (data) {
-          const item = data;
-          const templateVars = {
-            user_id,
-            is_admin,
-            item, // Pass the fetched item data
-          };
-
-          res.render('add_edit', templateVars); // Render the edit form with the item data
-        } else {
-          // Handle the case where no data was found
-          res.status(404).send('Item not found.');
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send('An error occurred.');
-      });
+        res.render('add_edit', templateVars); // Render the edit form with the item data
+      } else {
+        // Handle the case where no data was found
+        res.status(404).send('Item not found.');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('An error occurred.');
+    });
 
 });
 /************************************************************************/
 // POST ROUTE TO UPDATE THE ITEM
-router.post('/items/update/:item_id', (req, res) => {
+router.post('/items/edit/:item_id', (req, res) => {
 
   const itemId = Number(req.params.item_id);
   const itemData = req.body;
   console.log(req.body);
+  let availability = true;
+  if (itemData.is_available === 'false') {
+    availability = false;
+  }
 
   // Update the item data in the database
-  database.editItem(itemData, itemId)
+  database.editItem(itemData, itemId, availability)
     .then(() => {
       res.redirect(`/api/users/items/${itemId}`); // Redirect to the item's details page
     })
     .catch(error => {
       console.error(error);
-      res.status(500).send('An error occurred');
+      res.status(500).send('POST error occurred');
     });
 });
 
