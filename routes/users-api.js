@@ -255,21 +255,22 @@ router.get('/items/:item_id/edit', (req, res) => {
       });
 
 });
-
+/************************************************************************/
 // POST ROUTE TO UPDATE THE ITEM
-router.post('/items/:item_id/update', (req, res) => {
+router.post('/items/update/:item_id', (req, res) => {
 
   const itemId = Number(req.params.item_id);
   const itemData = req.body;
+  console.log(req.body);
 
   // Update the item data in the database
-  database.editItem(itemId, itemData)
+  database.editItem(itemData, itemId)
     .then(() => {
       res.redirect(`/api/users/items/${itemId}`); // Redirect to the item's details page
     })
     .catch(error => {
       console.error(error);
-      res.status(500).send('An error occurred.');
+      res.status(500).send('An error occurred');
     });
 });
 
