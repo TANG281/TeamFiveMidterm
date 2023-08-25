@@ -50,7 +50,7 @@
                 <% } %>
 
               <% if(user_id) { %>
-                <li><a class="dropdown-item" href="#">Messages</a></li>
+                <li><a class="dropdown-item" id="messages" href="#">Messages</a></li>
                 <li><a class="dropdown-item" href="#">Favourites</a></li>
                 <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
               <% } %>
@@ -69,3 +69,18 @@
 
     </nav>
   </div>
+
+  <!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="modal-close">&times;</span>
+      <h2>Messages</h2>
+    </div>
+    <div class="modal-body" id="modal-message">
+
+    </div>
+  </div>
+
+</div>
