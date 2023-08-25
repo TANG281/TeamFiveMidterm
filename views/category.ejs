@@ -50,11 +50,11 @@
 
             <!-- If the item is favourited, display the Unfavourite button -->
             <% if (idArray.includes(item.id)) { %>
-              <button type="button" class="btn btn-primary fav-feature unfavourite">Unfavourite</button>
+              <button type="button" class="btn btn-primary unfavourite">Unfavourite</button>
             <% } %>
             <!-- If the item is not favourited, display the Favourite button -->
             <% if (!idArray.includes(item.id)) { %>
-              <button type="button" class="btn btn-info fav-feature favourite">Favourite</button>
+              <button type="button" class="btn btn-info favourite">Favourite</button>
             <% } %>
 
           <% } %>
@@ -76,11 +76,11 @@
           <img src="<%= item.images_url %>" class="card-img-top" alt="Item Image">
 
           <!-- Price Tag -->
-          <p><span><%= item.price %></span> CAD</p>
-
-          <% if (!item.is_available) { %>
-            <span>SOLD OUT</span>
-          <% } %>
+          <p><span><%= item.price %></span> CAD
+            <% if (!item.is_available) { %>
+              <span> / SOLD OUT</span>
+            <% } %>
+          </p>
 
           <!-- Specifications Button -->
           <a href="/api/users/items/<%=item.id%>" type="button" class="btn btn-success">Specifications</a>
