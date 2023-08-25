@@ -1,52 +1,79 @@
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  background: rgb(163, 208, 219);
-  background: linear-gradient(227deg,
-      rgba(163, 208, 219, 1) 0%,
-      rgba(163, 176, 219, 1) 20%,
-      rgba(163, 173, 219, 1) 34%,
-      rgba(163, 219, 208, 1) 59%,
-      rgba(163, 208, 219, 1) 74%,
-      rgba(163, 208, 219, 1) 100%);
+  background: white;
 }
-
 
 .img {
   max-width: 100%;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ebe7dd;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  margin-top: 0px;
+}
+
+nav.navbar.navbar-expand-lg.bg-body-tertiary {
+  background-color: #ebe7dd;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.add-edit-main {
+  margin-top: 10%;
+  margin-right: 20%;
+  margin-left: 20%;
+  margin-bottom: 10%;
+}
 
 /*************************** NAVIGATION BAR ELEMENTS **************************/
 
+.category-main {
+  margin-top: 50px;
+}
 
 #navbarSupportedContent {
   padding-top: 10px;
+  background-color: #ebe7dd;
 }
 
+div .container-fluid {
+  background-color: #ebe7dd;
+}
 .navbar-expand-lg {
   top: 0;
   left: 0;
-  width: 100vw;
-  margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
   z-index: 1000;
   /* Ensure the navigation bar is above other content */
 }
 
-.navbar-nav i {
+.navbar-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 
-  justify-content: center;
-  margin-left: 3em;
-  padding: 8px;
+.nav-person-icon {
+  float: right;
+}
 
+.options {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Custom CSS to change the color of icons */
 .fa-solid {
-  color: rgb(34, 0, 255)
+  color: grey
 }
 
 /* Targets the Person Icon in the Nav Bar and aligns it with the rest of the elements. */
@@ -67,13 +94,27 @@ body {
   width: 300px;
 }
 
+.card {
+  align-items: center;
+  background: #ebe7dd;
+  border: none;
+  box-shadow: #888;
+}
+
+.card:hover {
+  box-shadow: 10px 10px grey;
+}
+
 /************************** CATEGORY PAGE ELEMENTS ****************************/
 
 #Filter-Function {
+  margin-top: 8%;
   width: 100vw;
-  margin-bottom: 2rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  background-color: #ebe7dd;
+}
+
+#main-container {
+  margin-top: 8%;
 }
 
 
@@ -94,13 +135,13 @@ body {
 .card-body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: content;
+
+
+  align-items: center;
 
   border-radius: 5%;
   padding:1rem;
 
-  height: 28rem;
   max-width: 18rem;
   margin-right: 1rem;
 
@@ -117,7 +158,7 @@ body {
 
 #User-Buttons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 }
@@ -147,4 +188,114 @@ footer i {
 
 footer p {
   margin-bottom: 0;
+}
+
+/***************************** Modal ELEMENTS ********************************/
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 300px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: gray;
+  color: white;
+}
+
+.modal-body {
+  padding: 20px 16px;
+  
+}
+
+
+/****** Rolling Banner ********/
+
+.rolling-banner {
+  overflow: hidden;
+  position: relative;
+  height: 60px; /* Adjust the height according to your design */
+}
+
+.banner-text {
+  position: absolute;
+  bottom: -100%; /* Start the text below the container */
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  animation: roll 5s linear infinite; /* Adjust animation duration as needed */
+}
+
+@keyframes roll {
+  0% {
+     bottom: -100%; /* Start position */
+  }
+  10% {
+     bottom: 0; /* Pause at this position */
+  }
+  90% {
+     bottom: 0; /* Pause at this position */
+  }
+  100% {
+     bottom: 100%; /* End position */
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  .options {
+    display: flex;
+    flex-direction: row;
+  }
 }
