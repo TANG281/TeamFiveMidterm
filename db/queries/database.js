@@ -42,10 +42,10 @@ const addItem = (itemData, ownerId) => {
 };
 
 // itemData is data from the form, itemId is from the URL eg.(req.params)
-const editItem = (itemData, itemId) => {
+const editItem = (itemData, itemId,availability) => {
   const queryString = `UPDATE items SET title = $1, description = $2, price = $3, is_available = $4, images_url = $5, category = $6 WHERE id = $7;`;
   return db
-    .query(queryString, [itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category, itemId]) // do not modify the date_posted column because we are only editing the item info
+    .query(queryString, [itemData.title, itemData.description, itemData.price, availability, itemData.images_url, itemData.category, itemId]) // do not modify the date_posted column because we are only editing the item info
     .then((data) => {
       return data.rows; // return the number of rows edited?
     })
