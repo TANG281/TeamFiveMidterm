@@ -10,6 +10,7 @@ const router = express.Router();
 const database = require('../db/queries/database');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
+const { user } = require('pg/lib/defaults');
 
 router.use(cookieParser());
 
@@ -121,8 +122,8 @@ router.get('/items/add', (req, res) => {
     res.redirect('/');
   } else {
 
-  // Render the 'add_edit' template and pass template variables
-  res.render('add_edit', templateVars);
+    // Render the 'add_edit' template and pass template variables
+    res.render('add_edit', templateVars);
   }
 });
 
@@ -159,6 +160,74 @@ router.post('/items/create_new', (req, res) => {
       // Handle errors if item insertion fails
       console.error('Error adding item:', error);
     });
+});
+
+
+// FILTER THROUGH THE DATABASE [`category.ejs`]
+router.get('/categories/:category_id/filter', (req, res) => {
+
+  // console.log("/categories/:category_id/filter Route!");
+
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+
+  // Extract the category value for we will have to pass it the database.
+  const category_id = req.params.category_id;
+
+
+  // The query string is passed to the route as an object.
+  const selectedFilter = req.query;
+
+  // Extract the key as a string.
+  const filterString = Object.keys(selectedFilter)[0];
+  // console.log(`Filter String: ${filterString}`);
+
+
+  // AN OBJECT THAT MAPS FILTER SELECTIONS INTO QUERIES
+  //
+  // A default list of filter strings matching the options available in the
+  // dropdown menu [`/category/category_id` page]. The keys are the values
+  // as displayed in the dropdown menu. The `filterItems()` function in
+  // `database.js` handles the actual queries. It is expecting an `options`
+  // object and a `category` object. Below, the value objects contain query data
+  // for the `options` object. This data will be fed into the query.
+  const filterValuesObject = {
+    "Price: Under $500": { minPrice: 0, maxPrice: 499 },
+    "Price: $500 - $1,000": { minPrice: 500, maxPrice: 1000 },
+    "Price: Over $1,000": { minPrice: 1001, maxPrice: 10000 },
+    "Availability: In Stock": { is_available: true },
+    "Availability: Out of Stock": { is_available: false }
+  };
+
+
+  // Map the `filterString` on to the `filterValuesObject`, such that it
+  // returns the key (query value). Load the value into `dbFilterValues`. Should
+  // look like this: `{ minPrice: 1000, maxPrice: 10000 }`
+  dbFilterValues = filterValuesObject[filterString];
+  // console.log("dbFilterValues: ", dbFilterValues);
+
+
+  // console.log("Pre-Database Call!", database.filterItems);
+  // console.log(user_id, is_admin, selectedFilter);
+
+  // DATABASE QUERY
+  database.filterItems(dbFilterValues, category_id)
+    .then((data) => {
+
+      // console.log(data);
+
+      res.status(200).json({
+        data,
+        selectedFilter,
+        user_id,
+        is_admin
+      });
+
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+
 });
 
 
@@ -227,11 +296,11 @@ router.get('/items/:item_id/edit', (req, res) => {
   const is_admin = req.cookies.is_admin;
   const itemId = req.params.item_id;
 
-/*When a user accesses the route /items/add, the req.params.item_id will be 'add',
- and thus the condition itemId === 'add' will be true.
- if the route /items/1, req.params.item_id will be 1 and the condition itemId ==='add' will be false.
- This is how the route handler distinguishes between
- the case of adding a new item and the case of editing an existing item.*/
+  /*When a user accesses the route /items/add, the req.params.item_id will be 'add',
+   and thus the condition itemId === 'add' will be true.
+   if the route /items/1, req.params.item_id will be 1 and the condition itemId ==='add' will be false.
+   This is how the route handler distinguishes between
+   the case of adding a new item and the case of editing an existing item.*/
 
   if (itemId === 'add') {
     // Render the form for adding a new item
