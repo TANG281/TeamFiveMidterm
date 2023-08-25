@@ -199,6 +199,37 @@ const checkUserIsAdmin = (userId) => {
     });
 };
 
+const addMessage = (messageInfo) => {
+  const queryString =`INSERT INTO messages (sender_id, recipient_id, content, item_id, date) VALUES ($1, $2, $3, $4, $5);`;
+
+  return db
+    .query(queryString, [messageInfo.userId, messageInfo.recipientId, messageInfo.content, messageInfo.item_id, messageInfo.date])
+    .then(() => {
+      return "Message saved succcessfuly!";
+    })
+}
+
+const getAdminByItemId = (item_id) => {
+  const queryString =  `SELECT owner_id FROM items WHERE id = $1;`;
+
+  return db
+    .query(queryString, [item_id])
+    .then((data) => {
+      return data.rows[0];
+    })
+}
+
+const getMessage = (recipientId) => {
+  const queryString =  `SELECT title, content, date, users.name FROM messages JOIN users ON sender_id = users.id JOIN items ON item_id = items.id WHERE recipient_id = $1;`;
+
+  return db
+    .query(queryString, [recipientId])
+    .then((data) => {
+      console.log(data.rows)
+      return data.rows;
+    })
+}
 
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, getFavouriteItemsId, addFavoriteItem, removeFavouriteItem, getSellerInfo, checkUserIsAdmin };
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, getFavouriteItemsId, addFavoriteItem, removeFavouriteItem, getSellerInfo, checkUserIsAdmin, addMessage, getAdminByItemId, getMessage };
+
