@@ -55,7 +55,7 @@
             -->
             <% if (is_admin === 'true') { %>
               <button type="button" class="btn btn-danger">Delete</button>
-              <button type="button" class="btn btn-warning">Edit</button>
+              <a type="button" class="btn btn-warning" href="/api/users/items/edit/<%=item.id%>">Edit</a>
             <% } %>
 
             <!-- If an Regular User is logged in, display these buttons: -->
