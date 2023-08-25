@@ -257,4 +257,22 @@ router.get('/items/:item_id', (req, res) => {
     });
 });
 
+router.get('/messages', (req, res) => {
+
+  const user_id = req.cookies.user_id;
+  console.log(user_id);
+
+  database.getMessage(user_id)
+    .then(data => {
+      const messageData = data;
+      console.log(data);
+      res.json({ messageData });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+})
+
 module.exports = router;
