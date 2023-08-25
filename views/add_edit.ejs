@@ -18,7 +18,7 @@
   <!-- TO CHECK WHETHER ADMIN NEEDS TO EDIT OR ADD NEW ITEM -->
 
 <% if( item ){ %>
-  <form class="form-inline" action="/api/users/items/update/<%=item.id%>" method="POST">
+  <form class="form-inline" action="/api/users/items/edit/<%=item.id%>" method="POST">
 
  <% } else {%>
  <form class="form-inline" action="/api/users/items/create_new" method="POST">
@@ -42,18 +42,19 @@
 
   <div class="input-group">
     <div class="input-group-text">
-      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus"  aria-label="Radio button for item In stock" value="true" <%= item && item.stockstatus ? 'checked' : '' %> required>
-      <span class="form-text me-2">In stock</span>
+      <label for="availability">Availability</label>
 
-      <input class="form-check-input mt-0 me-2" type="radio" name="stockstatus"  aria-label="Radio button for item Out of stock" value="false" <%= item && !item.stockstatus ? 'checked' : '' %> required>
-      <span class="form-text">Out of stock</span>
+      <select name="is_available">
+        <option value= true >Yes</option>
+        <option value= false >No</option>
+      </select>
     </div>
   </div>
 
   <div class="mb-3">
     <div class="input-group">
       <span class="input-group-text" id="image_url">Item Image URL</span>
-      <input type="text" class="form-control" name="image_url" id="image_url" aria-describedby="image_url" value="<%= item ? item.image_url : '' %>" required>
+      <input type="text" class="form-control" name="images_url" id="image_url" aria-describedby="image_url" value="<%= item ? item.image_url : '' %>" required>
     </div>
   </div>
 
