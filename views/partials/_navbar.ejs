@@ -1,21 +1,21 @@
-  <!-- NAVIGATION BAR -->
-  <div id="Nav-Bar-Container">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<!-- NAVIGATION BAR -->
+<div id="Nav-Bar-Container">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
 
-      <div class="container-fluid">
+    <div class="container-fluid">
 
 
       <a class="navbar-brand" href="/">TeamFive</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div class="options">
             <!-- CATEGORIES -->
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/api/users/items/categories/desktops"> Desktops</a>
@@ -31,49 +31,44 @@
             <li class="nav-item">
               <a class="nav-link" href="/api/users/items/categories/phones">Phones</a>
             </li>
+          </div>
 
             <!-- USER ICON DROPDOWN MENU -->
-
+          <div class="nav-person-icon">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="fa-solid fa-user"></i>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                <% if(is_admin === 'true') { %>
-                  <li><a class="dropdown-item" href="/api/users/items/add">Add Item</a></li>
-                <% } %>
+                  <% if(is_admin==='true' ) { %>
+                    <li><a class="dropdown-item" href="/api/users/items/add">Add Item</a></li>
+                    <% } %>
 
-                <% if(!user_id) { %>
-                  <li><a class="dropdown-item" href="#">Login</a></li>
-                <% } %>
+                      <% if(!user_id) { %>
+                        <li><a class="dropdown-item" href="#">Login</a></li>
+                        <% } %>
 
-              <% if(user_id) { %>
+                          <% if(user_id) { %>
 
-                <li><a class="dropdown-item" id="messages" href="#">Messages</a></li>
+                            <li><a class="dropdown-item" id="messages" href="#">Messages</a></li>
 
-                <li><a class="dropdown-item" href="/api/users/items/favourites">Favourites</a></li>
-              <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="/api/users/items/favourites">Favourites</a></li>
+                            <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
 
-              <% } %>
-              <li>
-                </li>
-
-              </ul>
-            </li>
-
-          </ul>
-
-
-        </div>
-
+                            <% } %>
+                              <li>
+                              </li>
+                </ul>
+              </li>
+          </div>
+        </ul>
       </div>
+    </div>
+  </nav>
+</div>
 
-    </nav>
-  </div>
-
-  <!-- The Modal -->
+<!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
