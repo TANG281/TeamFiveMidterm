@@ -15,24 +15,28 @@
   <!-- This container will hold product cards. -->
   <main>
 
-    <!-- THE FILTER BAR -->
-    <div id="Filter-Function" class="bg-light container-fluid">
+       <!-- THE FILTER BAR -->
+       <div id="Filter-Function" class="bg-light container-fluid">
 
-      <!-- Filter Section -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Filter By:
-        </button>
+        <!-- Filter Section -->
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Filter By:
+          </button>
+          <label id="Filter-Label"></label>
 
-        <!-- Available Filters  -->
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
-          <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
-        </ul>
+          <!-- Available Filters  -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-black-50" href="#">Price: Under $500</a></li>
+            <li><a class="dropdown-item text-black-50" href="#">Price: $500 - $1,000</a></li>
+            <li><a class="dropdown-item text-black-50" href="#">Price: Over $1,000</a></li>
+            <li><a class="dropdown-item text-black-50" href="#">Availability: In Stock</a></li>
+            <li><a class="dropdown-item text-black-50" href="#">Availability: Out of Stock</a></li>
+          </ul>
+        </div>
+
       </div>
-
-    </div>
 
 
     <!-- THE PRODUCT CARDS CONTAINER -->
