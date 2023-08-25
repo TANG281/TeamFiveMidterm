@@ -44,34 +44,32 @@
         <!-- CARD BODY -->
         <div class="card-body bg-light">
 
+          <div class="fav-feature">
+          <!-- If a user is logged in, display these buttons: -->
+          <% if (user_id) { %>
+
+            <!-- If the item is favourited, display the Unfavourite button -->
+            <% if (idArray.includes(item.id)) { %>
+              <button type="button" class="btn btn-primary fav-feature unfavourite">Unfavourite</button>
+            <% } %>
+            <!-- If the item is not favourited, display the Favourite button -->
+            <% if (!idArray.includes(item.id)) { %>
+              <button type="button" class="btn btn-info fav-feature favourite">Favourite</button>
+            <% } %>
+
+          <% } %>
+          </div>
+
           <!-- PRODUCT NAME -->
           <h5 class="card-title"><%= item.title %></h5>
 
           <!-- The First Row of Buttons -->
           <div id="User-Buttons">
-
-            <!-- If an Administrator-level user is logged in, display these
-                buttons:
-            -->
+            <!-- If an Administrator-level user is logged in, display these buttons -->
             <% if (is_admin === 'true') { %>
               <button type="button" class="btn btn-danger">Delete</button>
               <button type="button" class="btn btn-warning">Edit</button>
             <% } %>
-
-            <!-- If an Regular User is logged in, display these buttons: -->
-            <% if (user_id) { %>
-
-              <!-- If the item is favourited, display the Unfavourite button -->
-              <% if (idArray.includes(item.id)) { %>
-                <button type="button" class="btn btn-primary unfavourite">Unfavourite</button>
-              <% } %>
-              <!-- If the item is not favourited, display the Favourite button -->
-              <% if (!idArray.includes(item.id)) { %>
-                <button type="button" class="btn btn-info favourite">Favourite</button>
-              <% } %>
-
-            <% } %>
-
           </div>
 
           <!-- Product Image -->
