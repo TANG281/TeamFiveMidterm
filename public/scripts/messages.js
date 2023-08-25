@@ -24,7 +24,7 @@ $(document).ready(function() {
     .then((response) => {
       let output = "";
       for (const message of response.messageData){
-        output += "<i>[" + message.date + "]</i> From: <b>" + message.name + "</b> Item: " + message.title + " - Message: " + message.content + "<br>";
+        output += "<i>[" + message.date + "]</i> <b> From: </b>" + message.name + " <b> Item: </b>" + message.title + " <b> Message: </b> " + message.content + "<br>";
       }
 
       modalBody.html(output);
