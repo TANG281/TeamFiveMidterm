@@ -60,7 +60,16 @@
 
             <!-- If an Regular User is logged in, display these buttons: -->
             <% if (user_id) { %>
-              <button type="button" class="btn btn-info">Favourite</button>
+
+              <!-- If the item is favourited, display the Unfavourite button -->
+              <% if (idArray.includes(item.id)) { %>
+                <button type="button" class="btn btn-primary unfavourite">Unfavourite</button>
+              <% } %>
+              <!-- If the item is not favourited, display the Favourite button -->
+              <% if (!idArray.includes(item.id)) { %>
+                <button type="button" class="btn btn-info favourite">Favourite</button>
+              <% } %>
+
             <% } %>
 
           </div>

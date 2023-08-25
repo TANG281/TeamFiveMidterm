@@ -8,6 +8,9 @@ const getItemsByCategory = (category) => {
     .then((data) => {
       return data.rows; // return an array of objects
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -18,6 +21,9 @@ const getItemById = (itemId) => {
     .then((data) => {
       return data.rows[0]; // return an object
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemId is from URL passed as a parameter into this function
@@ -26,8 +32,11 @@ const deleteItem = (itemId) => {
   return db
     .query(queryString, [itemId])
     .then((data) => {
-      return data.rows; // return the number of row deleted
+      return data.rowCount; // return the number of row deleted
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemData is data from the form, ownerId is the user id in the cookies session
@@ -37,8 +46,11 @@ const addItem = (itemData, ownerId) => {
   return db
     .query(queryString, [ownerId, itemData.title, itemData.description, itemData.price, itemData.is_available, itemData.images_url, itemData.category])
     .then((data) => {
-      return data.rows; // return the number of rows posted?
+      return data.rowCount; // return the number of rows posted?
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // itemData is data from the form, itemId is from the URL eg.(req.params)
@@ -49,6 +61,9 @@ const editItem = (itemData, itemId) => {
     .then((data) => {
       return data.rows; // return the number of rows edited?
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // filter items
@@ -95,6 +110,10 @@ const filterItems = (options, category) => {
     .then((data) => {
       return data.rows;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
+
 };
 
 // userId from cookies session
@@ -105,17 +124,50 @@ const getFavouriteItems = (userId) => {
     .then((data) => {
       return data.rows;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
+};
+
+// userId from cookies session
+const getFavouriteItemsId = (userId) => {
+  const queryString = `SELECT items.id FROM items JOIN favourites ON items.id = favourites.item_id JOIN users ON users.id = favourites.user_id WHERE users.id = $1;`;
+  return db
+    .query(queryString, [userId])
+    .then((data) => {
+      return data.rows;
+    })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // userId from cookies session, itemId from ?
 const addFavoriteItem = (userId, itemId) => {
   const queryString = `INSERT INTO favourites (item_id, user_id) VALUES ($1, $2);`;
   return db
-    .query((queryString, [itemId, userId]))
+    .query(queryString, [itemId, userId])
     .then((data) => {
-      return data.rows;
+      return data.rowCount;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
+
+// remove item from favourite list
+const removeFavouriteItem = (item_id, user_id) => {
+  const queryString = `DELETE FROM favourites WHERE item_id = $1 AND user_id = $2;`;
+  return db
+    .query(queryString, [item_id, user_id])
+    .then((data) => {
+      return data.rowCount;
+    })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
+};
+
 
 // get the contact information of the seller, itemIDfrom the URL
 const getSellerInfo = (itemId) => {
@@ -125,6 +177,9 @@ const getSellerInfo = (itemId) => {
     .then((data) => {
       return data.rows;
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 // check if the logged in user is an admin
@@ -139,6 +194,9 @@ const checkUserIsAdmin = (userId) => {
         return 'false';
       };
     })
+    .catch((error) => {
+      console.log('database query error', error);
+    });
 };
 
 const addMessage = (messageInfo) => {
@@ -172,4 +230,6 @@ const getMessage = (recipientId) => {
     })
 }
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, checkUserIsAdmin, addMessage, getAdminByItemId, getMessage };
+
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, getFavouriteItemsId, addFavoriteItem, removeFavouriteItem, getSellerInfo, checkUserIsAdmin, addMessage, getAdminByItemId, getMessage };
+

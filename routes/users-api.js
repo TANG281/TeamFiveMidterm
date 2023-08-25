@@ -115,16 +115,28 @@ router.get('/items/categories/:category_id', (req, res) => {
 
   database.getItemsByCategory(categoryId)
     .then(items => {
-      const templateVars = {
-        user_id,
-        is_admin,
-        items
-      };
-      res.render('category', templateVars);
+      database.getFavouriteItemsId(user_id)
+        .then(favouriteItems => {
+          const idArray = [];
+          favouriteItems.forEach((favouriteItem) => {
+            idArray.push(favouriteItem.id);
+          });
+          const templateVars = {
+            user_id,
+            is_admin,
+            items,
+            idArray
+          };
+          res.render('category', templateVars);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          res.send('Inner db function error');
+        });
     })
     .catch((err) => {
       console.log(err.message);
-      res.send('An error occured');
+      res.send('Outer db function error');
     });
 });
 
@@ -136,17 +148,70 @@ router.get('/items/favourites', (req, res) => {
 
   database.getFavouriteItems(user_id)
     .then(items => {
-      const templateVars = {
-        user_id,
-        is_admin,
-        items
-      };
-      res.render('favourite', templateVars);
+      database.getFavouriteItemsId(user_id)
+        .then(favouriteItems => {
+          const idArray = [];
+          favouriteItems.forEach((favouriteItem) => {
+            idArray.push(favouriteItem.id);
+          });
+          const templateVars = {
+            user_id,
+            is_admin,
+            items,
+            idArray
+          };
+          res.render('category', templateVars);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          res.send('Inner db function error');
+        });
     })
     .catch((err) => {
       console.log(err.message);
-      res.send('Favourite page error');
+      res.send('Outer db function error');
     });
+});
+
+// Add an item to favourite
+router.post('/items/add_favourite/:item_id', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const item_id = Number(req.params.item_id);
+
+  database.addFavoriteItem(user_id, item_id)
+    .then(itemCount => {
+
+      console.log(`Added ${itemCount} item to favourite for user with id ${user_id}`);
+
+      // Since this is an AJAX Call, set Status Code to 202 ("Accepted"), and
+      // return it to the AJAX function.
+      res.status(202).send();
+    })
+    .catch((error) => {
+
+      console.log(`Cannot favourite item ${item_id}!`);
+
+      // Since this is an AJAX Call, set Status Code to 500 ("Internal Server
+      // Error"), and return Error message as a json to the AJAX function.
+      res.status(500).json({ error: error.message });
+    });
+});
+
+// Remove an item from favourite
+router.post('/items/remove_favourite/:item_id', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const item_id = Number(req.params.item_id);
+
+  database.removeFavouriteItem(item_id, user_id)
+    .then(itemCount => {
+      console.log((`Remove ${itemCount} from user ${user_id}'s favourite list`));
+      res.status(202).send();
+    })
+    .catch((error) => {
+      console.log(`Cannot remove favourite item ${item_id}!`);
+      res.status(500).json({ error: error.message });
+    });
+
 });
 
 //Rendering add_item page for adding new items
@@ -165,8 +230,8 @@ router.get('/items/add', (req, res) => {
     res.redirect('/');
   } else {
 
-  // Render the 'add_edit' template and pass template variables
-  res.render('add_edit', templateVars);
+    // Render the 'add_edit' template and pass template variables
+    res.render('add_edit', templateVars);
   }
 });
 
@@ -213,9 +278,9 @@ router.post('/items/delete/:item_id', (req, res) => {
 
   // Call the database to delete the item.
   database.deleteItem(item_id)
-    .then(items => {
+    .then(item => {
 
-      console.log(`The ${items} item was deleted from the database!`);
+      console.log(`${item} item was deleted from the database!`);
 
       // Since this is an AJAX Call, set Status Code to 202 ("Accepted"), and
       // return it to the AJAX function.
@@ -274,5 +339,68 @@ router.get('/messages', (req, res) => {
         .json({ error: err.message });
     });
 })
+
+// RENDERING add_edit page FOR DISPLAYING EDIT FORM FILLED WITH ITEM DETAILS
+router.get('/items/:item_id/edit', (req, res) => {
+  const user_id = req.cookies.user_id;
+  const is_admin = req.cookies.is_admin;
+  const itemId = req.params.item_id;
+
+/*When a user accesses the route /items/add, the req.params.item_id will be 'add',
+ and thus the condition itemId === 'add' will be true.
+ if the route /items/1, req.params.item_id will be 1 and the condition itemId ==='add' will be false.
+ This is how the route handler distinguishes between
+ the case of adding a new item and the case of editing an existing item.*/
+
+  if (itemId === 'add') {
+    // Render the form for adding a new item
+    const templateVars = {
+      user_id,
+      is_admin,
+      item: null, // set the item to null since it's a new item
+    };
+    res.render('add_edit', templateVars);
+  } else {
+    // Fetch the item data from the database based on itemId
+    database.getItemById(itemId)
+      .then(data => {
+        if (data && data.rows && data.rows.length > 0) {
+          const item = data.rows[0];
+          const templateVars = {
+            user_id,
+            is_admin,
+            item, // Pass the fetched item data
+          };
+          res.render('add_edit', templateVars); // Render the edit form with the item data
+        } else {
+          // Handle the case where no data was found
+          res.status(404).send('Item not found.');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send('An error occurred.');
+      });
+  }
+});
+
+// POST ROUTE TO UPDATE THE ITEM
+router.post('/items/:item_id/update', (req, res) => {
+  const itemId = Number(req.params.item_id);
+  const itemData = req.body;
+
+  // Update the item data in the database
+  database.editItem(itemId, itemData)
+    .then(() => {
+      res.redirect(`/api/users/items/${itemId}`); // Redirect to the item's details page
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('An error occurred.');
+    });
+});
+
+
+// EXPORTS
 
 module.exports = router;

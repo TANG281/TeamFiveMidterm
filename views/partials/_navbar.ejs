@@ -50,9 +50,12 @@
                 <% } %>
 
               <% if(user_id) { %>
+
                 <li><a class="dropdown-item" id="messages" href="#">Messages</a></li>
-                <li><a class="dropdown-item" href="#">Favourites</a></li>
-                <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
+
+                <li><a class="dropdown-item" href="/api/users/items/favourites">Favourites</a></li>
+              <li><a class="dropdown-item" href="/api/users/logout">Logout</a></li>
+
               <% } %>
               <li>
                 </li>

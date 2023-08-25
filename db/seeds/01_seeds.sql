@@ -58,21 +58,3 @@ INSERT INTO items (owner_id, title, description, price, is_available, images_url
 VALUES (2, 'MSI Cubi N Compact Mini PC', 'Experience efficient computing without compromising space with the MSI Cubi N Compact Mini PC. Powered by an Intel Celeron processor and 4GB RAM, this mini PC offers reliable performance for everyday tasks. The compact design makes it a perfect fit for tight spaces, while the 128GB SSD provides speedy storage. With USB and HDMI ports, it offers essential connectivity. Whether for home or office use, the MSI Cubi N Compact Mini PC is your solution for compact and capable computing.', 250, FALSE, '/images/mini3.png', 'miniPCs', NOW());
 
 
-
-
-INSERT INTO favourites (user_id, item_id) VALUES (1, 2);
-INSERT INTO favourites (user_id, item_id) VALUES (1, 4);
-INSERT INTO favourites (user_id, item_id) VALUES (1, 5);
-INSERT INTO favourites (user_id, item_id) VALUES (1, 8);
-INSERT INTO favourites (user_id, item_id) VALUES (2, 1);
-INSERT INTO favourites (user_id, item_id) VALUES (2, 3);
-INSERT INTO favourites (user_id, item_id) VALUES (2, 4);
-INSERT INTO favourites (user_id, item_id) VALUES (2, 8);
-INSERT INTO favourites (user_id, item_id) VALUES (3, 3);
-INSERT INTO favourites (user_id, item_id) VALUES (3, 12);
-INSERT INTO favourites (user_id, item_id) VALUES (3, 11);
-INSERT INTO favourites (user_id, item_id) VALUES (3, 9);
-INSERT INTO favourites (user_id, item_id) VALUES (4, 1);
-INSERT INTO favourites (user_id, item_id) VALUES (4, 10);
-INSERT INTO favourites (user_id, item_id) VALUES (4, 6);
-INSERT INTO favourites (user_id, item_id) VALUES (4, 7);
