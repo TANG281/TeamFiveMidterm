@@ -134,8 +134,8 @@ router.post('/items/create_new', (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
   const price = parseInt(req.body.price);
-  const stockstatus = req.body.stockstatus;
-  const image_url = req.body.image_url;
+  const stockstatus = req.body.is_available;
+  const images_url = req.body.images_url;
   const category = req.body.category;
 
   const owner_id = parseInt(req.cookies.user_id);
@@ -148,7 +148,7 @@ router.post('/items/create_new', (req, res) => {
     description,
     price,
     is_available: stockstatus,
-    images_url: image_url,
+    images_url: images_url,
     category,
   }, owner_id)
     .then(() => {
