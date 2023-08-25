@@ -161,4 +161,15 @@ const getAdminByItemId = (item_id) => {
     })
 }
 
-module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, checkUserIsAdmin, addMessage, getAdminByItemId };
+const getMessage = (recipientId) => {
+  const queryString =  `SELECT title, content, date, users.name FROM messages JOIN users ON sender_id = users.id JOIN items ON item_id = items.id WHERE recipient_id = $1;`;
+
+  return db
+    .query(queryString, [recipientId])
+    .then((data) => {
+      console.log(data.rows)
+      return data.rows;
+    })
+}
+
+module.exports = { getItemsByCategory, getItemById, deleteItem, addItem, editItem, filterItems, getFavouriteItems, addFavoriteItem, getSellerInfo, checkUserIsAdmin, addMessage, getAdminByItemId, getMessage };
