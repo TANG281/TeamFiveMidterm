@@ -36,13 +36,22 @@
 
             <!-- USER ICON DROPDOWN MENU -->
           <div class="nav-person-icon">
+            <div class="nav-user-name"
+            <%if(user_id && is_admin === 'false') { %>
+              <span>User</span>
+            <% } %>
+            <%if(is_admin === 'true') { %>
+              <span>Admin</span>
+            <% } %>
+            </div>
+            <div>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-user"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                  <% if(is_admin==='true' ) { %>
+                  <% if(is_admin==='true') { %>
                     <li><a class="dropdown-item" href="/api/users/items/add">Add Item</a></li>
                     <% } %>
 
@@ -62,6 +71,7 @@
                               </li>
                 </ul>
               </li>
+            </div>
           </div>
         </ul>
       </div>

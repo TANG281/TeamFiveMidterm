@@ -7,10 +7,20 @@ body {
 }
 
 .header {
-
   padding-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ebe7dd;
+  padding-top: 15%;
   padding-bottom: 10%;
   margin-top: 0px;
+}
+
+nav.navbar.navbar-expand-lg.bg-body-tertiary {
+  background-color: #ebe7dd;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .add-edit-main {
@@ -18,6 +28,10 @@ body {
   margin-right: 20%;
   margin-left: 20%;
   margin-bottom: 10%;
+}
+
+.input-group-text {
+  width: 150px;
 }
 
 /*************************** NAVIGATION BAR ELEMENTS **************************/
@@ -56,6 +70,9 @@ div .container-fluid {
 }
 
 .nav-person-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   float: right;
 }
 
@@ -172,6 +189,17 @@ div .container-fluid {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+#User-Buttons > div {
+  display: flex;
+  justify-content: center;
+  width: 91px
+}
+
+#User-Buttons > div > .btn {
+  width: 100%;
+  margin: 0px
 }
 
 
