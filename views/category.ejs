@@ -50,20 +50,6 @@
         <div class="card-body bg-light">
 
 
-
-            <!-- If the item is favourited, display the Unfavourite button -->
-            <% if (idArray.includes(item.id)) { %>
-              <button type="button" class="btn btn-outline-primary unfavourite">Unfavourite</button>
-            <% } %>
-            <!-- If the item is not favourited, display the Favourite button -->
-            <% if (!idArray.includes(item.id)) { %>
-              <button type="button" class="btn btn-outline-info favourite">Favourite</button>
-            <% } %>
-
-          <% } %>
-          </div>
-
-
           <br>
 
           <!-- PRODUCT NAME -->
@@ -73,31 +59,28 @@
           <div id="User-Buttons">
             <!-- If an Administrator-level user is logged in, display these buttons -->
             <% if (is_admin === 'true') { %>
-
-              <button type="button" class="btn btn-outline-danger mx-5">Delete</button>
-              <a type="button" class="btn btn-outline-warning" href="/api/users/items/edit/<%=item.id%>">Edit</a>
-     <div>
+              <div>
                 <a type="button" class="btn btn-warning" href="/api/users/items/edit/<%=item.id%>">Edit</a>
               </div>
               <div>
               <a type="button" class="btn btn-danger mx-5">Delete</a>
-            </div>
+              </div>
 
             <% } %>
-            <div class="fav-feature">
+              <div class="fav-feature">
               <!-- If a user is logged in, display these buttons: -->
-              <% if (user_id) { %>
+            <% if (user_id) { %>
 
-                <!-- If the item is favourited, display the Unfavourite button -->
-                <% if (idArray.includes(item.id)) { %>
-                  <button type="button" class="btn btn-primary unfavourite">Unfavor</button>
-                <% } %>
-                <!-- If the item is not favourited, display the Favourite button -->
-                <% if (!idArray.includes(item.id)) { %>
-                  <button type="button" class="btn btn-info favourite">Favourite</button>
-                <% } %>
-
+              <!-- If the item is favourited, display the Unfavourite button -->
+              <% if (idArray.includes(item.id)) { %>
+                <button type="button" class="btn btn-primary unfavourite">Unfavor</button>
               <% } %>
+              <!-- If the item is not favourited, display the Favourite button -->
+              <% if (!idArray.includes(item.id)) { %>
+                <button type="button" class="btn btn-info favourite">Favourite</button>
+              <% } %>
+
+            <% } %>
               </div>
           </div>
 
