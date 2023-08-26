@@ -29,6 +29,10 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
   margin-bottom: 10%;
 }
 
+.input-group-text {
+  width: 150px;
+}
+
 /*************************** NAVIGATION BAR ELEMENTS **************************/
 
 .category-main {
@@ -63,6 +67,9 @@ div .container-fluid {
 }
 
 .nav-person-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   float: right;
 }
 
@@ -255,7 +262,6 @@ footer p {
 
 .modal-body {
   padding: 20px 16px;
-  
 }
 
 
