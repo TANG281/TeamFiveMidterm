@@ -161,7 +161,7 @@ router.get('/items/favourites', (req, res) => {
             items,
             idArray
           };
-          res.render('category', templateVars);
+          res.render('favourite', templateVars);
         })
         .catch((err) => {
           console.log(err.message);

@@ -13,26 +13,11 @@
 
   <!-- THE MAIN CONTAINER -->
   <!-- This container will hold product cards. -->
-  <main>
+  <main class="container">
 
-    <!-- THE FILTER BAR -->
-    <div id="Filter-Function" class="bg-light container-fluid">
-
-      <!-- Filter Section -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Filter By:
-        </button>
-
-        <!-- Available Filters  -->
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
-          <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
-        </ul>
+       <!-- THE FILTER BAR -->
+       <div id="Filter-Function" class="bg-light container-fluid">
       </div>
-
-    </div>
 
 
     <!-- THE PRODUCT CARDS CONTAINER -->
@@ -42,46 +27,55 @@
       <% items.forEach((item) => { %>
 
         <!-- CARD BODY -->
-        <div class="card-body bg-light" >
+        <div class="card-body bg-light">
+
+
+
+          <br>
 
           <!-- PRODUCT NAME -->
           <h5 class="card-title"><%= item.title %></h5>
 
           <!-- The First Row of Buttons -->
           <div id="User-Buttons">
-
-            <!-- If an Administrator-level user is logged in, display these
-                buttons:
-            -->
+            <!-- If an Administrator-level user is logged in, display these buttons -->
             <% if (is_admin === 'true') { %>
-              <button type="button" class="btn btn-danger">Delete</button>
-              <button type="button" class="btn btn-warning">Edit</button>
-            <% } %>
-
-            <!-- If an Regular User is logged in, display these buttons: -->
-            <% if (user_id) { %>
-
-              <!-- If the item is favourited, display the Unfavourite button -->
-              <% if (idArray.includes(item.id)) { %>
-                <button type="button" class="btn btn-primary unfavourite">Unfavourite</button>
-              <% } %>
-              <!-- If the item is not favourited, display the Favourite button -->
-              <% if (!idArray.includes(item.id)) { %>
-                <button type="button" class="btn btn-info favourite">Favourite</button>
-              <% } %>
+              <div>
+                <a type="button" class="btn btn-warning" href="/api/users/items/edit/<%=item.id%>">Edit</a>
+              </div>
+              <div>
+              <a type="button" class="btn btn-danger mx-5">Delete</a>
+            </div>
 
             <% } %>
+            <div class="fav-feature">
+              <!-- If a user is logged in, display these buttons: -->
+              <% if (user_id) { %>
 
+                <!-- If the item is favourited, display the Unfavourite button -->
+                <% if (idArray.includes(item.id)) { %>
+                  <button type="button" class="btn btn-primary unfavourite">Unfavor</button>
+                <% } %>
+                <!-- If the item is not favourited, display the Favourite button -->
+                <% if (!idArray.includes(item.id)) { %>
+                  <button type="button" class="btn btn-info favourite">Favourite</button>
+                <% } %>
+
+              <% } %>
+              </div>
           </div>
 
           <!-- Product Image -->
           <img src="<%= item.images_url %>" class="card-img-top" alt="Item Image">
 
           <!-- Price Tag -->
+          <% if (!item.is_available) { %>
+            <span class="fw-bold text-danger"> SOLD OUT</span>
+          <% } %>
           <p><span><%= item.price %></span> CAD</p>
 
           <!-- Specifications Button -->
-          <a href="/api/users/items/<%=item.id%>" type="button" class="btn btn-success">Specifications</a>
+          <a href="/api/users/items/<%=item.id%>" type="button" class="btn btn-outline-secondary">Specifications</a>
 
         </div>
 

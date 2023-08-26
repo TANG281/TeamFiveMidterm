@@ -21,7 +21,7 @@ $(document).ready(function() {
     // assign urlPath and button string variable accordingly if the 'Favourite' button is clicked
     if (element.hasClass("favourite")) {
       urlPath = `/api/users/items/add_favourite/${item_id}`;
-      button = "<button type='button' class='btn btn-primary unfavourite'>Unfavourite</button>"
+      button = "<button type='button' class='btn btn-primary unfavourite'>Unfavor</button>"
     }
 
     // prevent sending data to backend and loading the response page
