@@ -1,5 +1,5 @@
 body {
-  background: white;
+  background-color: #ebe7dd;
 }
 
 .img {
@@ -7,6 +7,7 @@ body {
 }
 
 .header {
+  padding-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,12 +48,14 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
 div .container-fluid {
   background-color: #ebe7dd;
 }
+
 .navbar-expand-lg {
   top: 0;
   left: 0;
   width: 100%;
   display: flex;
-
+  padding-top: 0px;
+  padding-bottom: 0px;
   position: fixed;
   justify-content: space-between;
   align-items: center;
@@ -97,13 +100,10 @@ div .container-fluid {
   display: none;
 }
 
-.card-img-top {
-  width: 300px;
-}
 
 .card {
   align-items: center;
-  background: #ebe7dd;
+
   border: none;
   box-shadow: #888;
 }
@@ -115,9 +115,12 @@ div .container-fluid {
 /************************** CATEGORY PAGE ELEMENTS ****************************/
 
 #Filter-Function {
-  margin-top: 8%;
+  margin-top: 5%;
+  margin-right: 5%;
   width: 100vw;
   background-color: #ebe7dd;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #main-container {
@@ -131,12 +134,18 @@ div .container-fluid {
 
 
 #Product-Cards-Container {
-  width: 90vw;
-  margin-bottom: 2rem;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    padding-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ebe7dd;
+    border: none;
+    box-shadow: #888;
+    width: 400px;
+    height: 500px;
+
+
 }
 
 .card-body {
@@ -152,12 +161,24 @@ div .container-fluid {
   max-width: 18rem;
   margin-right: 1rem;
 
+  width: 300px;
+  height: 450px;
 }
 
 .card-body p {
   text-align: center;
 }
+#card-size {
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ebe7dd;
+  border: none;
+  box-shadow: #888;
+  width: 400px;
+  height: 500px;
+}
 
 .card-title {
   margin-bottom: 1rem;
@@ -273,6 +294,7 @@ footer p {
 
 .modal-body {
   padding: 20px 16px;
+
 }
 
 

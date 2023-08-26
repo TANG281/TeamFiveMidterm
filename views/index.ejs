@@ -13,109 +13,92 @@
   <!-- Adds the Navigation Bar Partial. -->
   <%- include('./partials/_navbar'); %>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="fw-bold">Welcome to TeamFive Buy/sell Listings Website!!!</h1>
-    <p>Explore our featured items and more...</p>
-
-    <marquee font style="font-weight: normal;" scrolldelay="50"><font size="5" face="Verdana"><font color="black">Discover Your Next Treasure – Buy and Sell with Confidence!</marquee>
-
-  </header>
 
 
-  <!-- MAIN CONTAINER -->
-  <main id="main-container" class="container">
+<section class="bg-dark text-light p-5 text-center-sm-start">
+  <div class="container">
+    <div class ="d-sm-flex align-items-center justify-content-between">
+      <div>
+        <h1>Welcome to <span class="text-warning">TeamFive </span> Buy/Sell Listings Website!!!</h1>
+<p class="lead my-4">
+  <marquee font style="font-weight: normal;" scrolldelay="50"><font size="5" face="Verdana">Discover Your Next Treasure – Buy and Sell with Confidence!</marquee>
+</p>
+<a href="/api/users/items/categories/desktops"><button class="btn btn-primary btn-lg">Explore our featured items and more...</button></a>
+      </div>
+      <img class="img-fluid w-50 d-none d-sm-block my-4" src="/images/teamFive.jpg"/>
+    </div>
+  </div>
+</section>
 
-    <!-- FEATURED 4 ITEMS SECTION-->
+<!-- BOxes -->
+<section class="p-5">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-md">
+        <div class="card bg-dark text-light">
+          <div class="card-body text-light">
+            <img src="/images/desktop2.png" class="card-img-top" alt="Desktop Image" />
+            <div>
+              <h3 class="card-title mb-3">Desktops</h3>
 
-    <section>
-      <div class="container">
-        <!-- FIRST ROW -->
-        <div class="row my-5">
-
-          <div class="col-6">
-            <div class="card">
-              <img src="/images/desktop1.png" class="card-img-top" alt="Desktop Image" />
-              <div class="card-body">
-                <div class="row">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5 class="card-title">Desktops</h5>
-                    </li>
-                    <li><a href="/api/users/items/categories/desktops" class="btn btn-primary">Shop Now</a>
-                    </li>
-                  </ul>
-
-                </div>
-
-              </div>
+                <a href="/api/users/items/categories/desktops" class="btn btn-primary">Shop Now</a>
+              </h3>
             </div>
           </div>
-
-          <div class="col-6">
-            <div class="card">
-              <img src="/images/laptop2.png" class="card-img-top" alt="Laptop Image" />
-              <div class="card-body">
-                <div class="row">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5 class="card-title">Laptops</h5>
-                    </li>
-                    <li><a href="/api/users/items/categories/laptops" class="btn btn-primary">Shop Now</a>
-                    </li>
-                  </ul>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+      </div>
+      <div class="col-md">
+        <div class="col-md">
+          <div class="card bg-dark text-light">
+            <div class="card-body text-light">
+              <img src="/images/laptop1.png" class="card-img-top" alt="Laptop Image" />
+              <div>
+                <h3 class="card-title mb-3">Laptops</h3>
 
-        <!-- SECOND ROW -->
-        <div class="row my-5">
-          <div class="col-6">
-            <div class="card">
-              <img src="/images/mini2.png" class="card-img-top" alt="Mini-PC Image" />
-              <div class="card-body">
-                <div class="row">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5 class="card-title">Mini-PCs</h5>
-                    </li>
-                    <li><a href="/api/users/items/categories/miniPCs" class="btn btn-primary">Shop Now</a>
-                    </li>
-                  </ul>
-
-                </div>
+                  <a href="" class="btn btn-primary">Shop Now</a>
+                </h3>
               </div>
             </div>
           </div>
-
-          <div class="col-6">
-            <div class="card">
-              <img src="/images/phone3.png" class="card-img-top" alt="Phone Image" />
-              <div class="card-body">
-                <div class="row">
-                  <ul class="list-unstyled">
-                    <li>
-                      <h5 class="card-title">Phones</h5>
-                    </li>
-                    <li><a href="/api/users/items/categories/phones" class="btn btn-primary">Shop Now</a>
-                    </li>
-                  </ul>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="p-5">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-md">
+        <div class="card bg-dark text-light">
+          <div class="card-body text-light">
+            <img src="/images/phone2.png" class="card-img-top" alt="Phone Image" />
+            <div>
+              <h3 class="card-title mb-3">Phones</h3>
 
-    </section>
+                <a href="/api/users/items/categories/Phones" class="btn btn-primary">Shop Now</a>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="col-md">
+          <div class="card bg-dark text-light">
+            <div class="card-body text-light">
+              <img src="/images/mini3.png" class="card-img-top" alt="Mini-PC Image" />
+              <div>
+                <h3 class="card-title mb-3">Mini-PCs</h3>
 
-  </main>
-
+                  <a href="/api/users/items/categories/miniPCs" class="btn btn-primary">Shop Now</a>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- Add the Footer from partials folder -->
   <%- include('./partials/_footer'); %>

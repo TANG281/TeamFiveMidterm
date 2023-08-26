@@ -16,7 +16,7 @@
   <main class="container">
 
        <!-- THE FILTER BAR -->
-       <div id="Filter-Function" class="bg-light container-fluid">
+       <div id="Filter-Function" class="container-fluid">
 
         <!-- Filter Section -->
         <div class="dropdown">
@@ -40,6 +40,7 @@
 
 
     <!-- THE PRODUCT CARDS CONTAINER -->
+    <section class="p-5">
     <div id="Product-Cards-Container" class="container-fluid">
 
       <!-- Query database and retrieve the list of all items in the database. -->
@@ -50,16 +51,32 @@
 
 
 
+            <!-- If the item is favourited, display the Unfavourite button -->
+            <% if (idArray.includes(item.id)) { %>
+              <button type="button" class="btn btn-outline-primary unfavourite">Unfavourite</button>
+            <% } %>
+            <!-- If the item is not favourited, display the Favourite button -->
+            <% if (!idArray.includes(item.id)) { %>
+              <button type="button" class="btn btn-outline-info favourite">Favourite</button>
+            <% } %>
+
+          <% } %>
+          </div>
+
+
           <br>
 
           <!-- PRODUCT NAME -->
-          <h5 class="card-title"><%= item.title %></h5>
+          <h7 class="card-title text-nowrap"><%= item.title %></h7>
 
           <!-- The First Row of Buttons -->
           <div id="User-Buttons">
             <!-- If an Administrator-level user is logged in, display these buttons -->
             <% if (is_admin === 'true') { %>
-              <div>
+
+              <button type="button" class="btn btn-outline-danger mx-5">Delete</button>
+              <a type="button" class="btn btn-outline-warning" href="/api/users/items/edit/<%=item.id%>">Edit</a>
+     <div>
                 <a type="button" class="btn btn-warning" href="/api/users/items/edit/<%=item.id%>">Edit</a>
               </div>
               <div>
@@ -101,7 +118,7 @@
       <% }); %>
 
     </div>
-
+</section>
   </main>
 
 
