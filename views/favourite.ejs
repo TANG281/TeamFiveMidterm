@@ -13,53 +13,28 @@
 
   <!-- THE MAIN CONTAINER -->
   <!-- This container will hold product cards. -->
-
-  <main>
-
-    <!-- THE FILTER BAR -->
-    <div id="Filter-Function" class="container-fluid">
-
-      <!-- Filter Section -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Filter By:
-        </button>
-
-        <!-- Available Filters  -->
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-black-50" href="#">Price</a></li>
-          <li><a class="dropdown-item text-black-50" href="#">Availability</a></li>
-        </ul>
-      </div>
-
   <main class="container">
 
-
        <!-- THE FILTER BAR -->
-       <div id="Filter-Function" class="bg-light container-fluid">
+       <div id="Filter-Function" class="container-fluid">
       </div>
 
 
     <!-- THE PRODUCT CARDS CONTAINER -->
+    <section class="p-5">
     <div id="Product-Cards-Container" class="container-fluid">
 
       <!-- Query database and retrieve the list of all items in the database. -->
       <% items.forEach((item) => { %>
 
         <!-- CARD BODY -->
-
-        <div class="card-body bg-dark text-light" >
-
         <div class="card-body bg-light">
-
 
 
           <br>
 
-
           <!-- PRODUCT NAME -->
-          <h5 class="card-title"><%= item.title %></h5>
+          <h7 class="card-title text-nowrap"><%= item.title %></h7>
 
           <!-- The First Row of Buttons -->
           <div id="User-Buttons">
@@ -70,23 +45,23 @@
               </div>
               <div>
               <a type="button" class="btn btn-danger mx-5">Delete</a>
-            </div>
+              </div>
 
             <% } %>
-            <div class="fav-feature">
+              <div class="fav-feature">
               <!-- If a user is logged in, display these buttons: -->
-              <% if (user_id) { %>
+            <% if (user_id) { %>
 
-                <!-- If the item is favourited, display the Unfavourite button -->
-                <% if (idArray.includes(item.id)) { %>
-                  <button type="button" class="btn btn-primary unfavourite">Unfavor</button>
-                <% } %>
-                <!-- If the item is not favourited, display the Favourite button -->
-                <% if (!idArray.includes(item.id)) { %>
-                  <button type="button" class="btn btn-info favourite">Favourite</button>
-                <% } %>
-
+              <!-- If the item is favourited, display the Unfavourite button -->
+              <% if (idArray.includes(item.id)) { %>
+                <button type="button" class="btn btn-primary unfavourite">Unfavor</button>
               <% } %>
+              <!-- If the item is not favourited, display the Favourite button -->
+              <% if (!idArray.includes(item.id)) { %>
+                <button type="button" class="btn btn-info favourite">Favourite</button>
+              <% } %>
+
+            <% } %>
               </div>
           </div>
 
@@ -107,7 +82,7 @@
       <% }); %>
 
     </div>
-
+</section>
   </main>
 
 
