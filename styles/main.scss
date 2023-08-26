@@ -11,15 +11,15 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #ebe7dd;
-  padding-top: 10%;
+  padding-top: 15%;
   padding-bottom: 10%;
   margin-top: 0px;
 }
 
 nav.navbar.navbar-expand-lg.bg-body-tertiary {
   background-color: #ebe7dd;
-  margin-top: 0;
-  margin-bottom: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .add-edit-main {
@@ -27,6 +27,10 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
   margin-right: 20%;
   margin-left: 20%;
   margin-bottom: 10%;
+}
+
+.input-group-text {
+  width: 150px;
 }
 
 /*************************** NAVIGATION BAR ELEMENTS **************************/
@@ -63,6 +67,9 @@ div .container-fluid {
 }
 
 .nav-person-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   float: right;
 }
 
@@ -266,7 +273,6 @@ footer p {
 
 .modal-body {
   padding: 20px 16px;
-
 }
 
 
