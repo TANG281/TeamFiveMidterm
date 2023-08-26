@@ -163,6 +163,17 @@ div .container-fluid {
   margin-bottom: 1rem;
 }
 
+#User-Buttons > div {
+  display: flex;
+  justify-content: center;
+  width: 91px
+}
+
+#User-Buttons > div > .btn {
+  width: 100%;
+  margin: 0px
+}
+
 
 .card-body img {
   max-height: 200px;
@@ -255,7 +266,7 @@ footer p {
 
 .modal-body {
   padding: 20px 16px;
-  
+
 }
 
 
